@@ -7,3 +7,6 @@ mv vim-airline-themes .vim
 git clone https://github.com/hueyjj/nerdtree
 mv nerdtree .vim
 
+git clone https://github.com/hueyjj/supertab
+mv supertab .vim
+
