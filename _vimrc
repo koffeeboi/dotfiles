@@ -146,7 +146,9 @@ set vb t_vb=                                            "Mute system beep and sc
 set linespace=0                                         "Fix special symbol alignment issue
 set autochdir                                           "Auto change working directory when opening/viewing files"
 set undofile                                            "Maintain undo history between sessions
+set fileencoding=utf8
 set encoding=utf8
+set bomb
 "set cursorline                                         "Highlight cursor current line (NOTE: known to be a slow function, so remove if performance begin to hit)
 
 au GUIEnter * set vb t_vb=                              "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
