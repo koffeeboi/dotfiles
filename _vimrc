@@ -25,7 +25,13 @@ if has ("gui_running")
     set guioptions -=r                                  "Right scroll bar
     set guioptions -=L                                  "Left scroll bar
     set guitablabel=%t                                  "Only show file name in tab bar
-    set guifont=Inconsolata:h12:cANSI:qDRAFT
+    if has ("unix")
+        set guifont=Inconsolata\ 12
+    elseif has ("win32")
+        set guifont=Inconsolata:h12:cANSI:qDRAFT
+    else
+        "Use default font
+    endif
     "Fonts
         "DejaVu_Sans_Mono_for_Powerline:h10:cANSI:qDRAFT
         "Consolas:h11:cANSI:qDRAFT
