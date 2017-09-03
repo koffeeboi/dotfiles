@@ -1,4 +1,4 @@
-#! usr/bin/env sh
+#!/usr/bin/env sh
 
 git clone --quiet https://github.com/hueyjj/vim-airline
 echo "Vim airline... ok"
@@ -23,6 +23,8 @@ case "$os" in
             find . -type f -print0 | xargs -0 dos2unix      # Convert dos (windows) files to unix/linux
             } &> /dev/null
             
+            mv _vimrc .vimrc
+            mv .vimrc ~/
             echo "Moved .vimrc to home directory"
 
         };;
@@ -33,6 +35,8 @@ case "$os" in
         };;
 esac
 echo ""
+
+mkdir .vim
 
 echo "Plugins moved to .vim"
 mv vim-airline .vim
