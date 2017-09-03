@@ -7,7 +7,7 @@ echo "Vim airline themes... ok"
 git clone --quiet https://github.com/hueyjj/nerdtree
 echo "Nerdtree... ok"
 
-GIT Clone --quiet https://github.com/hueyjj/supertab
+git clone --quiet https://github.com/hueyjj/supertab
 echo "Supertab ...ok"
 
 echo ".vim moved to home directory"
