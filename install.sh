@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 git clone --quiet https://github.com/hueyjj/vim-airline
 echo "Vim airline... ok"
 
@@ -37,6 +35,7 @@ esac
 echo ""
 
 mkdir .vim
+echo ""
 
 echo "Plugins moved to .vim"
 mv vim-airline .vim
