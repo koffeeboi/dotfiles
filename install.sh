@@ -1,3 +1,5 @@
+#! usr/bin/env sh
+
 git clone --quiet https://github.com/hueyjj/vim-airline
 echo "Vim airline... ok"
 
@@ -9,8 +11,7 @@ echo "Nerdtree... ok"
 
 git clone --quiet https://github.com/hueyjj/supertab
 echo "Supertab ...ok"
-
-echo ".vim moved to home directory"
+echo ""
 
 os=$(uname)
 case "$os" in
@@ -23,8 +24,7 @@ case "$os" in
             } &> /dev/null
             
             echo "Moved .vimrc to home directory"
-            mv _vimrc .vimrc
-            mv .vimrc ~/
+
         };;
         *)
         {
@@ -32,6 +32,7 @@ case "$os" in
             mv _vimrc ~/
         };;
 esac
+echo ""
 
 echo "Plugins moved to .vim"
 mv vim-airline .vim
