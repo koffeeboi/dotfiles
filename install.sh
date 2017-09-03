@@ -21,7 +21,7 @@ case "$os" in
             find . -type f -print0 | xargs -0 dos2unix      # Convert dos (windows) files to unix/linux
             } &> /dev/null
             
-            mv _vimrc .vimrc
+            cp _vimrc .vimrc
             mv .vimrc ~/
             echo "Moved .vimrc to home directory"
 
@@ -29,20 +29,22 @@ case "$os" in
         *)
         {
             echo "Moved _vimrc to home directory"
-            mv _vimrc ~/
+            cp _vimrc ~/
         };;
 esac
 echo ""
 
-mkdir .vim
+mkdir ~/.vim
+mkdir ~/.vim/colors
+mkdir ~/.vim/fonts
 echo ""
 
-echo "Plugins moved to .vim"
-mv vim-airline .vim
-mv vim-airline-themes .vim
-mv nerdtree .vim
-mv supertab .vim
+echo "Plugins moved to ~/.vim"
+cp -r vim-airline ~/.vim
+cp -r vim-airline-themes ~/.vim
+cp -r nerdtree ~/.vim
+cp -r supertab ~/.vim
 
-echo ".vim moved to home directory"
-mv .vim ~/
+cp -r .vim/colors/* ~/.vim/colors
+cp -r .vim/fonts/* ~/.vim/fonts
 
