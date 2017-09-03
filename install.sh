@@ -23,12 +23,12 @@ case "$os" in
             
             cp _vimrc .vimrc
             mv .vimrc ~/
-            echo "Moved .vimrc to home directory"
+            echo "Copied .vimrc to home directory"
 
         };;
         *)
         {
-            echo "Moved _vimrc to home directory"
+            echo "Copied _vimrc to home directory"
             cp _vimrc ~/
         };;
 esac
@@ -39,7 +39,7 @@ mkdir ~/.vim/colors
 mkdir ~/.vim/fonts
 echo ""
 
-echo "Plugins moved to ~/.vim"
+echo "Plugins copied to ~/.vim"
 cp -r vim-airline ~/.vim
 cp -r vim-airline-themes ~/.vim
 cp -r nerdtree ~/.vim
