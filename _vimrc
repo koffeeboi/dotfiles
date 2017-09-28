@@ -27,10 +27,11 @@ set runtimepath+=~/.vim
 "    so ~/.vim/supertab/ftplugin/xml.vim
 "    helptags ~/.vim/supertab/doc
 "endif
-
-if isdirectory($HOME. "/.vim/visualmarkers")
-    set runtimepath+=~/.vim/visualmarkers
-    helptags ~/.vim/visualmarkers/doc
+ 
+"Visual markers
+if isdirectory($HOME. "/.vim/visualmarks")
+    set runtimepath+=~/.vim/visualmarks
+    helptags ~/.vim/visualmarks/doc
 endif
 
 "Show marks
@@ -107,7 +108,7 @@ if !exists("g:syntax_on")                               "Avoid syntax collision 
 endif
 
 let g:gruvbox_contrast_dark="soft"                      "Soft contrast
-colorscheme gruvbox                                     "Color scheme
+colorscheme gruvbox
  
 let mapleader=','
 
@@ -153,15 +154,14 @@ if has ("gui_running")
         "set guifont=Inconsolata\ 12
         set guifont=Consolas\ 11
     elseif has ("win32")
-        "set guifont=Inconsolata:h12:cANSI:qDRAFT
+        "set guifont=
         set guifont=Consolas:h11:cANSI:qDRAFT
 
-        autocmd GUIEnter * simalt ~x                            "Maximizes window
-    else
-        "Use default font
+        autocmd GUIEnter * simalt ~x                    "Maximizes window
     endif
 
     "Fonts
+        "Inconsolata:h12:cANSI:qDRAFT
         "DejaVu_Sans_Mono_for_Powerline:h10:cANSI:qDRAFT
         "Consolas:h11:cANSI:qDRAFT
 
@@ -176,7 +176,7 @@ endif
 autocmd GUIEnter * set vb t_vb=                         "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
 
 "Del
-imap <C-l> <Del>
+inoremap <C-l> <Del>
 
 "Paste more than once hack
 xnoremap p pgvy
@@ -185,7 +185,7 @@ xnoremap p pgvy
 "set statusline=%F\ %y\ [%L\ lines]\ column:\ %c\ %=---%p%%--- "using airline atm so no need for this
 
 "jj to escape key
-imap jj <ESC>
+inoremap jj <ESC>
 
 "Insert a character from normal mode. Press space then enter a character. e.g space space, space enter, space 'i'
 nnoremap <Space> i_<Esc>r
@@ -194,45 +194,44 @@ nnoremap <Space> i_<Esc>r
 nnoremap <F5> :so $MYVIMRC<ESC>
 
 "Split current line down to next line
-
 nnoremap <S-s> i<CR><ESC>l
 
 "Move everything on cursor line and below down one line
 nnoremap <C-j> mlo<ESC>`l
-
+ 
 "Replace string under cursor
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>h :.,$s/\<<C-r><C-w>\>/
 
+"Delete buffer without closing
+nnoremap <silent> <Leader>k :bp\|bd#<CR>
+ 
 "Increase/Decrease buffer window height/width
 nnoremap <A--> <C-w>-
 nnoremap <A-=> <C-w>+
 nnoremap <A-,> <C-w><
 nnoremap <A-.> <C-w>>
-
+ 
 "Nerdtree shortcuts
 nnoremap <Leader>o :NERDTree<Return>
 nnoremap <Leader>tg :NERDTreeToggle<Return>
 nnoremap <Leader>f :NERDTreeFocus<Return>
 
-"Mark last position, yank from mark a to current position, stay at current position
-"nnoremap <F6> mbmc`a""y`b`c
-
 "Scroll
-nnoremap <A-k> 5k
-nnoremap <A-j> 5j
+nnoremap <A-k> {
+nnoremap <A-j> }
 
 "Cut, Yank, Paste
-nnoremap ;y v`a"dy``
+nnoremap ;y m`v`a"dy``
 nnoremap ;p m`v`a"dp``
 nnoremap ;x m`v`a"dx``
 
 "Tab and buffer cycle
-nnoremap <C-S-Tab> gT
-nnoremap <C-Tab> gt
-nnoremap <A-h> :bp<Return>
-nnoremap <A-l> :bn<Return>
-
+nnoremap <silent> <C-S-Tab> gT
+nnoremap <silent> <C-Tab> gt
+nnoremap <silent> <A-h> :bp<Return>
+nnoremap <silent> <A-l> :bn<Return>
+ 
 "List buffers
 nnoremap gb :ls<CR>:buffer<Space>
 
@@ -258,14 +257,25 @@ highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
 highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
 
 "Highlight markers
-nnoremap <silent> ma ma:call visualmarkers#HlMarkA()<CR>
-nnoremap <silent> mb mb:call visualmarkers#HlMarkB()<CR>
-nnoremap <silent> mc mc:call visualmarkers#HlMarkC()<CR>
+let g:visualmarks_buffer_mark = 'l'
+call visualmarks#SetHighlights([ 
+    \["buffer", "black", "white",   "black", "white"],
+    \["a",      "black", "cyan",    "black", "#137b71"],
+    \["b",      "black", "yellow",  "black", "#ffa500"],
+    \["c",      "black", "red",     "black", "red"],
+    \["d",      "black", "red",     "black", "red"],
+    \["e",      "black", "red",     "black", "red"],
+\])
+nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
+nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
+nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
+nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
+nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
 
-nnoremap <Leader>z :call visualmarkers#ToggleHlMarkers()<CR>
+nnoremap <Leader>z :call visualmarks#ToggleHlMarkers()<CR>
 
 "Smooth scrollling
-"https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
+"[Modified] https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
 function! SmoothScroll(up)
     if a:up
         let scrollaction=""
@@ -279,7 +289,7 @@ function! SmoothScroll(up)
     while counter < &scroll
         let counter += 1
 
-        if progress < 30    "< 50% progress
+        if progress < 30    "Less than 50% progress
             "pass
         elseif progress < 50
             sleep 1m
@@ -299,6 +309,3 @@ endfunction
 
 nnoremap <C-U> :call SmoothScroll(1)<Enter>
 nnoremap <C-D> :call SmoothScroll(0)<Enter>
-inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
-inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
-
