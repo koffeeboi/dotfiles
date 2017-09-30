@@ -3,5 +3,6 @@ Capslock to control
     Set XKBOPTIONS="ctrl:nocaps"
 
 Keyrate
-    xset r rate 200 75
+    gsettings set org.gnome.desktop.peripherals.keyboard delay 180
+    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 15
    
