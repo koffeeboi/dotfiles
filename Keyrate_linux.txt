@@ -1,5 +1,0 @@
-sudo apt-get install dconf-tools
-open dconf-tools
-org > gnome > desktop > peripherals > keyboards
-input speed: 200 ms
-repeat speed: 15 ms
