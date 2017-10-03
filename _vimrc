@@ -33,25 +33,10 @@ set runtimepath+=~/.vim
 "endif
 
 "Visual markers
-if isdirectory($HOME. "/.vim/visualmarks")
+if isdirectory($HOME . "/.vim/visualmarks")
     set runtimepath+=~/.vim/visualmarks
     helptags ~/.vim/visualmarks/doc
 
-    "Settings
-    let g:visualmarks_buffer_mark = 'l'
-    call visualmarks#SetHighlights([ 
-        \["buffer", "black", "white",   "black", "white"],
-        \["a",      "black", "cyan",    "black", "#137b71"],
-        \["b",      "black", "yellow",  "black", "#ffa500"],
-        \["c",      "black", "red",     "black", "red"],
-        \["d",      "black", "red",     "black", "red"],
-        \["e",      "black", "red",     "black", "red"],
-    \])
-    nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
-    nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
-    nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
-    nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
-    nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
 endif
 
 "Airline
@@ -269,6 +254,21 @@ syntax match Fixme /\<\cfixme\>/
 highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
 highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
 
+    "Settings
+    let g:visualmarks_buffer_mark = 'l'
+    call visualmarks#SetHighlights([ 
+        \["buffer", "black", "white",   "black", "white"],
+        \["a",      "black", "cyan",    "black", "#137b71"],
+        \["b",      "black", "yellow",  "black", "#ffa500"],
+        \["c",      "black", "red",     "black", "red"],
+        \["d",      "black", "red",     "black", "red"],
+        \["e",      "black", "red",     "black", "red"],
+    \])
+    nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
+    nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
+    nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
+    nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
+    nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
 "Smooth scrollling
 "[Modified] https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
 function! SmoothScroll(up)
