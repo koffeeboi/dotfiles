@@ -2,15 +2,19 @@
 if !isdirectory($HOME . "/.vim")
     call mkdir($HOME . "/.vim")
 endif
+
 if !isdirectory($HOME . "/.vim/backup")
     call mkdir($HOME . "/.vim/backup")
 endif
+
 if !isdirectory($HOME . "/.vim/swap")
     call mkdir($HOME . "/.vim/swap")
 endif
+
 if !isdirectory($HOME . "/.vim/undo")
     call mkdir($HOME . "/.vim/undo")
 endif
+
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
@@ -27,16 +31,27 @@ set runtimepath+=~/.vim
 "    so ~/.vim/supertab/ftplugin/xml.vim
 "    helptags ~/.vim/supertab/doc
 "endif
- 
+
 "Visual markers
 if isdirectory($HOME. "/.vim/visualmarks")
     set runtimepath+=~/.vim/visualmarks
     helptags ~/.vim/visualmarks/doc
-endif
 
-"Show marks
-if isdirectory($HOME . "/.vim/showmarks")
-    set runtimepath+=~/.vim/showmarks
+    "Settings
+    let g:visualmarks_buffer_mark = 'l'
+    call visualmarks#SetHighlights([ 
+        \["buffer", "black", "white",   "black", "white"],
+        \["a",      "black", "cyan",    "black", "#137b71"],
+        \["b",      "black", "yellow",  "black", "#ffa500"],
+        \["c",      "black", "red",     "black", "red"],
+        \["d",      "black", "red",     "black", "red"],
+        \["e",      "black", "red",     "black", "red"],
+    \])
+    nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
+    nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
+    nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
+    nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
+    nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
 endif
 
 "Airline
@@ -68,7 +83,7 @@ if isdirectory($HOME . "/.vim/vim-airline")
     "let g:airline_symbols.linenr = '☰'
     "let g:airline_symbols.maxlinenr = ''
     autocmd VimEnter * AirlineToggleWhitespace          "Turn off whitespace detection
-    autocmd VimEnter * AirlineTheme gruvbox 
+    "autocmd VimEnter * AirlineTheme gruvbox 
 endif
 
 "NerdTree
@@ -150,9 +165,11 @@ if has ("gui_running")
     set guitablabel=%t                                  "Only show file name in tab bar
     set guicursor+=a:blinkon0                           "Disable blinking cursor
 
+    set lines=999 columns=999
+
     if has ("unix")
         "set guifont=Inconsolata\ 12
-        set guifont=Consolas\ 11
+        set guifont=DejaVu\ Sans\ Mono\ 11
     elseif has ("win32")
         "set guifont=
         set guifont=Consolas:h11:cANSI:qDRAFT
@@ -217,10 +234,6 @@ nnoremap <Leader>o :NERDTree<Return>
 nnoremap <Leader>tg :NERDTreeToggle<Return>
 nnoremap <Leader>f :NERDTreeFocus<Return>
 
-"Scroll
-nnoremap <A-k> {
-nnoremap <A-j> }
-
 "Cut, Yank, Paste
 nnoremap ;y m`v`a"dy``
 nnoremap ;p m`v`a"dp``
@@ -229,8 +242,8 @@ nnoremap ;x m`v`a"dx``
 "Tab and buffer cycle
 nnoremap <silent> <C-S-Tab> gT
 nnoremap <silent> <C-Tab> gt
-nnoremap <silent> <A-h> :bp<Return>
-nnoremap <silent> <A-l> :bn<Return>
+nnoremap <silent> <F1> :bp<Return>
+nnoremap <silent> <F2> :bn<Return>
  
 "List buffers
 nnoremap gb :ls<CR>:buffer<Space>
@@ -255,24 +268,6 @@ syntax match Note /\<TODO\>\|\<NOTE\>\|\<\cJasper\>\|\<\cjj\>/
 syntax match Fixme /\<\cfixme\>/
 highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
 highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
-
-"Highlight markers
-let g:visualmarks_buffer_mark = 'l'
-call visualmarks#SetHighlights([ 
-    \["buffer", "black", "white",   "black", "white"],
-    \["a",      "black", "cyan",    "black", "#137b71"],
-    \["b",      "black", "yellow",  "black", "#ffa500"],
-    \["c",      "black", "red",     "black", "red"],
-    \["d",      "black", "red",     "black", "red"],
-    \["e",      "black", "red",     "black", "red"],
-\])
-nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
-nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
-nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
-nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
-nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
-
-nnoremap <Leader>z :call visualmarks#ToggleHlMarkers()<CR>
 
 "Smooth scrollling
 "[Modified] https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
