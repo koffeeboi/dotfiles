@@ -168,10 +168,10 @@ if has ("gui_running")
         "Consolas:h11:cANSI:qDRAFT
 
     "YouCompleteMe                                      "GUI only for now. Can't run 64-bit vim in window's terminal emulator, however it is possible. A solution exist though.
-    if isdirectory($HOME . "/.vim/YouCompleteMe")
+    if isdirectory($HOME . "/.vim/Youcompleteme")
         let g:ycm_global_ycm_extra_conf = "~/.vim/YouCompleteMeConfigs/.ycm_extra_conf.py"
-        set runtimepath+=~/.vim/YouCompleteMe
-        helptags ~/.vim/YouCompleteMe/doc
+        set runtimepath+=~/.vim/Youcompleteme
+        helptags ~/.vim/Youcompleteme/doc
     endif
 endif 
 
