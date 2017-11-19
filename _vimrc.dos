@@ -1,69 +1,62 @@
-﻿"Swapfiles/Backup/Undo file directories; need // for no collisions
-if !isdirectory($HOME . "/.vim")
-    call mkdir($HOME . "/.vim")
-endif
-if !isdirectory($HOME . "/.vim/backup")
-    call mkdir($HOME . "/.vim/backup")
-endif
-if !isdirectory($HOME . "/.vim/swap")
-    call mkdir($HOME . "/.vim/swap")
-endif
-if !isdirectory($HOME . "/.vim/undo")
-    call mkdir($HOME . "/.vim/undo")
-endif
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+﻿silent! call mkdir($HOME . "/.vim")
+silent! call mkdir($HOME . "/.vim/safe")
+silent! call mkdir($HOME . "/.vim/safe/backup")
+silent! call mkdir($HOME . "/.vim/safe/swap")
+silent! call mkdir($HOME . "/.vim/safe/undo")
 
-set runtimepath+=~/.vim
+set backupdir=~/.vim/safe/backup//                      "need // for no collisions
+set directory=~/.vim/safe/swap//
+set undodir=~/.vim/safe/undo//
 
-"===================PLUGINS======================"
-"Visual markers
-if isdirectory($HOME. "/.vim/visualmarks")
-    set runtimepath+=~/.vim/visualmarks
-    helptags ~/.vim/visualmarks/doc
-endif
+"================================================================================================="
 
-"Show marks
-if isdirectory($HOME . "/.vim/showmarks")
-    set runtimepath+=~/.vim/showmarks
-endif
+set rtp+=~/.vim/colors
+set rtp+=~/.vim/colors/jjstyle.vim
+set rtp+=~/.vim/autoload/airline/themes
+set rtp+=~/.vim
+
+call plug#begin('~/.vim/plugged')
+    Plug 'scrooloose/nerdtree'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'lifepillar/vim-mucomplete'
+    Plug 'vim-syntastic/syntastic'
+call plug#end()
+
+"Plugin settings
+autocmd VimEnter * AirlineToggleWhitespace              "Turn off whitespace detection
 
 "Airline
-if isdirectory($HOME . "/.vim/vim-airline")
-    set runtimepath+=~/.vim/vim-airline                 "Add airline to runtime
-    set runtimepath+=~/.vim/vim-airline-themes          "Add airline themes to runtime
-    
-    helptags ~/.vim/vim-airline/doc                     "Add airline help.txt to :help airline
-    
-    let g:airline#extensions#tabline#enabled=1          "Enable tabline
-    let g:airline#extensions#tabline#show_buffers=1
-    let g:airline#extensions#tabline#show_splits=1      "Removes tabline filename
-    let g:airline#extensions#tabline#fnamemod=':t'      "Just show the filename (no path) in the tab
-    let g:airline#extensions#tabline#tab_nr_type=1      "Tab number
+let g:airline#extensions#tabline#enabled=1              "Enable tabline
+let g:airline#extensions#tabline#show_buffers=1
+let g:airline#extensions#tabline#show_splits=1          "Removes tabline filename
+let g:airline#extensions#tabline#fnamemod=':t'          "Just show the filename (no path) in the tab
+let g:airline#extensions#tabline#tab_nr_type=1          "Tab number
 
-    if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-    endif
+"vim-mucomplete
+set completeopt+=menuone
+inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+set completeopt+=noselect
+let g:mucomplete#enable_auto_at_startup = 1
+set shortmess+=c                                        "Shut off completion messages
 
-    autocmd VimEnter * AirlineToggleWhitespace          "Turn off whitespace detection
-    if has ("gui_running")
-        autocmd VimEnter * AirlineTheme jjstyle_airline
-    endif
-endif
+"Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 
-"NerdTree
-if isdirectory($HOME . "/.vim/nerdtree")
-    set runtimepath+=~/.vim/nerdtree                     "Add nerdtree directory
-    helptags ~/.vim/nerdtree/doc                         "Add nerdtree help page 
-endif
-"===================END PLUGINS======================"
+"================================================================================================="
+
+let g:gruvbox_contrast_dark="soft"                      "Soft contrast
 
 if !exists("g:syntax_on")                               "Avoid syntax collision with others
     syntax enable
 endif
 
-"let g:gruvbox_contrast_dark="soft"                      "Soft contrast
 colorscheme jjstyle
  
 let mapleader=','
@@ -93,8 +86,6 @@ set autochdir                                           "Auto change working dir
 set undofile                                            "Maintain undo history between sessions
 set fileencoding=utf8
 set encoding=utf8
-"set bomb                                               "Don't use this for glsl. Corrupts file
-"set cursorline                                         "Highlight cursor current line (NOTE: known to be a slow function, so remove if performance begin to hit)
 
 "Gui options
 if has ("gui_running")
@@ -106,30 +97,18 @@ if has ("gui_running")
     set guitablabel=%t                                  "Only show file name in tab bar
     set guicursor+=a:blinkon0                           "Disable blinking cursor
 
+    autocmd GUIEnter * set vb t_vb=                     "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
+    autocmd GUIEnter * AirlineTheme jjstyle_airline
+
     if has ("unix")
-        "set guifont=Inconsolata\ 12
         set guifont=Consolas\ 11
     elseif has ("win32")
-        "set guifont=
         set guifont=Consolas:h11:cANSI:qDRAFT
 
         autocmd GUIEnter * simalt ~x                    "Maximizes window
     endif
-
-    "Fonts
-        "Inconsolata:h12:cANSI:qDRAFT
-        "DejaVu_Sans_Mono_for_Powerline:h10:cANSI:qDRAFT
-        "Consolas:h11:cANSI:qDRAFT
-
-    "YouCompleteMe                                      "GUI only for now. Can't run 64-bit vim in window's terminal emulator, however it is possible. A solution exist though.
-    if isdirectory($HOME . "/.vim/YouCompleteMe")
-        let g:ycm_global_ycm_extra_conf = "~/.vim/YouCompleteMeConfigs/.ycm_extra_conf.py"
-        set runtimepath+=~/.vim/YouCompleteMe
-        helptags ~/.vim/YouCompleteMe/doc
-    endif
 endif 
 
-autocmd GUIEnter * set vb t_vb=                         "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
 
 "Del
 inoremap <C-l> <Del>
@@ -195,41 +174,11 @@ nnoremap gb :ls<CR>:buffer<Space>
 "Turn off highlight
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-"Previous error
-nnoremap <F9> :cprevious<Return> 
-
-"Next error
-nnoremap <F10> :cnext<Return>
-
-"Build and open error window
-nnoremap <F11> :make!<Return><ESC>:copen<Return>
-
-"Close error window
-nnoremap <F12> :cclose<Return>
-
 "Custom syntax highlight
 syntax match Note /\<TODO\>\|\<NOTE\>\|\<\cJasper\>\|\<\cjj\>/
 syntax match Fixme /\<\cfixme\>/
 highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
 highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
-
-"Highlight markers
-let g:visualmarks_buffer_mark = 'l'
-call visualmarks#SetHighlights([ 
-    \["buffer", "black", "white",   "black", "white"],
-    \["a",      "black", "cyan",    "black", "#137b71"],
-    \["b",      "black", "yellow",  "black", "#ffa500"],
-    \["c",      "black", "red",     "black", "red"],
-    \["d",      "black", "red",     "black", "red"],
-    \["e",      "black", "red",     "black", "red"],
-\])
-nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
-nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
-nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
-nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
-nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
-
-nnoremap <silent> <Leader>z :call visualmarks#ToggleHlMarkers()<CR>
 
 "Smooth scrollling
 "[Modified] https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
