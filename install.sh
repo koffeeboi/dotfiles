@@ -13,8 +13,7 @@ case "$os" in
             find . -type f -print0 | xargs -0 dos2unix      #Convert dos (windows) files to unix/linux
             } &> /dev/null
             
-            find . -type f -name "_vimrc.dos" -print0 | xargs -0 dos2unix
-            cp _vimrc.dos ~/.vimrc
+            tr -d '\15\32' < _vimrc.dos > ~/.vimrc
             echo "Copied .vimrc to home directory"
 
         };;
