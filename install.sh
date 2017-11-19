@@ -1,56 +1,36 @@
-git clone --quiet https://github.com/hueyjj/vim-airline
-echo "Vim airline...ok"
-
-git clone --quiet https://github.com/hueyjj/vim-airline-themes
-echo "Vim airline themes...ok"
-
-git clone --quiet https://github.com/hueyjj/nerdtree
-echo "Nerdtree...ok"
-
-git clone --quiet https://github.com/hueyjj/supertab
-echo "Supertab...ok"
-
-git clone --quiet https://github.com/hueyjj/supertab
-echo "visualmarks...ok"
-
-echo ""
+mkdir ~/.vim
+mkdir ~/.vim/autoload
+mkdir ~/.vim/autoload/airline
+mkdir ~/.vim/autoload/airline/themes
+mkdir ~/.vim/colors
 
 os=$(uname)
 case "$os" in
         "Linux")
         {
             echo "Operating system: Linux"
-            
             {
-            find . -type f -print0 | xargs -0 dos2unix      # Convert dos (windows) files to unix/linux
+            find . -type f -print0 | xargs -0 dos2unix      #Convert dos (windows) files to unix/linux
             } &> /dev/null
             
-            dos2unix _vimrc     # dos2unix trick for whole directory didn't work for some reason
-            cp _vimrc .vimrc
-            mv .vimrc ~/
+            dos2unix _vimrc.dos                             #dos2unix trick for whole directory didn't work for some reason
+            cp _vimrc.dos ~/.vimrc
             echo "Copied .vimrc to home directory"
 
         };;
         *)
         {
             echo "Copied _vimrc to home directory"
-            cp _vimrc ~/
+            cp _vimrc.dos ~/_vimrc
         };;
 esac
 echo ""
 
-mkdir ~/.vim
-mkdir ~/.vim/colors
-mkdir ~/.vim/fonts
+cp ./.vim/autoload/airline/themes/jjstyle_airline.vim ~/.vim/autoload/airline/themes/
+cp ./.vim/colors/* ~/.vim/colors/
+
 echo ""
 
-echo "Plugins copied to ~/.vim"
-cp -r vim-airline ~/.vim
-cp -r vim-airline-themes ~/.vim
-cp -r nerdtree ~/.vim
-cp -r supertab ~/.vim
-cp -r visualmarks ~/.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-cp -r .vim/colors/* ~/.vim/colors
-cp -r .vim/fonts/* ~/.vim/fonts
-
+echo "[MESSAGE] Do :PlugInstall to set up plugins"

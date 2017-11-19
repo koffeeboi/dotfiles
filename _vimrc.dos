@@ -101,7 +101,7 @@ if has ("gui_running")
     autocmd GUIEnter * AirlineTheme jjstyle_airline
 
     if has ("unix")
-        set guifont=Consolas\ 11
+        set guifont=Ubuntu\ Mono\ 12
     elseif has ("win32")
         set guifont=Consolas:h11:cANSI:qDRAFT
 
