@@ -135,8 +135,10 @@ nnoremap <S-s> i<CR><ESC>l
 nnoremap <C-j> mlo<ESC>`l
  
 "Replace string under cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>h :.,$s/\<<C-r><C-w>\>/
+nnoremap <Leader>q :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>w :.,$s/\<<C-r><C-w>\>/
+
+nnoremap <Leader>1 :SyntasticReset<CR>
 
 "Delete buffer without closing
 nnoremap <silent> <Leader>k :bp\|bd#<CR>
