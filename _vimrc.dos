@@ -103,8 +103,9 @@ if has ("gui_running")
     if has ("unix")
         set guifont=Ubuntu\ Mono\ 12
     elseif has ("win32")
+        set shell=bash                                  "When using syntastic, for some reason on Windows, a TMP file is created but destroyed... adding this and -c fixes that...
+        set shellcmdflag=-c
         set guifont=Consolas:h11:cANSI:qDRAFT
-
         autocmd GUIEnter * simalt ~x                    "Maximizes window
     endif
 endif 
