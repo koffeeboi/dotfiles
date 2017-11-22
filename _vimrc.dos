@@ -1,12 +1,12 @@
 ﻿silent! call mkdir($HOME . "/.vim")
-silent! call mkdir($HOME . "/.vim/safe")
-silent! call mkdir($HOME . "/.vim/safe/backup")
-silent! call mkdir($HOME . "/.vim/safe/swap")
-silent! call mkdir($HOME . "/.vim/safe/undo")
+silent! call mkdir($HOME . "/.vim/temp")
+silent! call mkdir($HOME . "/.vim/temp/backup")
+silent! call mkdir($HOME . "/.vim/temp/swap")
+silent! call mkdir($HOME . "/.vim/temp/undo")
 
-set backupdir=~/.vim/safe/backup//                      "need // for no collisions
-set directory=~/.vim/safe/swap//
-set undodir=~/.vim/safe/undo//
+set backupdir=~/.vim/temp/backup//                      "need // for no collisions
+set directory=~/.vim/temp/swap//
+set undodir=~/.vim/temp/undo//
 
 "================================================================================================="
 
@@ -17,21 +17,21 @@ set rtp+=~/.vim
 
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
     Plug 'lifepillar/vim-mucomplete'
     Plug 'vim-syntastic/syntastic'
+    "Plug 'vim-airline/vim-airline'
+    "Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 "Plugin settings
-autocmd VimEnter * AirlineToggleWhitespace              "Turn off whitespace detection
+"autocmd VimEnter * AirlineToggleWhitespace              "Turn off whitespace detection
 
 "Airline
-let g:airline#extensions#tabline#enabled=1              "Enable tabline
-let g:airline#extensions#tabline#show_buffers=1
-let g:airline#extensions#tabline#show_splits=1          "Removes tabline filename
-let g:airline#extensions#tabline#fnamemod=':t'          "Just show the filename (no path) in the tab
-let g:airline#extensions#tabline#tab_nr_type=1          "Tab number
+"let g:airline#extensions#tabline#enabled=1              "Enable tabline
+"let g:airline#extensions#tabline#show_buffers=1
+"let g:airline#extensions#tabline#show_splits=1          "Removes tabline filename
+"let g:airline#extensions#tabline#fnamemod=':t'          "Just show the filename (no path) in the tab
+"let g:airline#extensions#tabline#tab_nr_type=1          "Tab number
 
 "vim-mucomplete
 set completeopt+=menuone
@@ -57,7 +57,7 @@ if !exists("g:syntax_on")                               "Avoid syntax collision 
     syntax enable
 endif
 
-colorscheme jjstyle
+colorscheme jjstyle2
  
 let mapleader=','
 
@@ -98,18 +98,17 @@ if has ("gui_running")
     set guicursor+=a:blinkon0                           "Disable blinking cursor
 
     autocmd GUIEnter * set vb t_vb=                     "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
-    autocmd GUIEnter * AirlineTheme jjstyle_airline
+    "autocmd GUIEnter * AirlineTheme jjstyle_airline
 
     if has ("unix")
         set guifont=Ubuntu\ Mono\ 12
     elseif has ("win32")
-        set shell=bash                                  "When using syntastic, for some reason on Windows, a TMP file is created but destroyed... adding this and -c fixes that...
-        set shellcmdflag=-c
+        set shell=cmd                                  "When using syntastic, for some reason on Windows, a TMP file is created but destroyed... adding this and -c fixes that...
+        set shellcmdflag=/c
         set guifont=Consolas:h11:cANSI:qDRAFT
         autocmd GUIEnter * simalt ~x                    "Maximizes window
     endif
 endif 
-
 
 "Del
 inoremap <C-l> <Del>
@@ -119,6 +118,7 @@ xnoremap p pgvy
 
 "PathToFile FileType NumberOfLines ColumnNumber PercentageThroughFile [see :help statusline to what can add]
 "set statusline=%F\ %y\ [%L\ lines]\ column:\ %c\ %=---%p%%--- "using airline atm so no need for this
+set statusline=%<%F\ %h%m%r%y%=%-14.(%l,%c%V%)\ %P
 
 "Easier escape key
 inoremap jj <ESC>
@@ -182,39 +182,3 @@ syntax match Note /\<TODO\>\|\<NOTE\>\|\<\cJasper\>\|\<\cjj\>/
 syntax match Fixme /\<\cfixme\>/
 highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
 highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
-
-"Smooth scrollling
-"[Modified] https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
-function! SmoothScroll(up)
-    if a:up
-        let scrollaction=""
-    else
-        let scrollaction=""
-    endif
-    exec "normal " . scrollaction
-    redraw
-    let counter = 1
-    let progress = (counter + 0.0) * 100 / &scroll
-    while counter < &scroll
-        let counter += 1
-
-        if progress < 30    "Less than 50% progress
-            "pass
-        elseif progress < 50
-            sleep 1m
-        elseif progress < 70
-            sleep 3m
-        elseif progress < 90
-            sleep 5m
-        else
-            sleep 7m
-        endif
-
-        redraw
-        exec "normal! " . scrollaction
-        let progress = (counter + 0.0) * 100 / &scroll
-    endwhile
-endfunction
-
-nnoremap <C-U> :call SmoothScroll(1)<Enter>
-nnoremap <C-D> :call SmoothScroll(0)<Enter>
