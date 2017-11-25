@@ -25,6 +25,9 @@ case "$os" in
 esac
 echo ""
 
+dos2unix *
+dos2unix ./.vim/colors/*
+
 cp ./.vim/autoload/airline/themes/jjstyle_airline.vim ~/.vim/autoload/airline/themes/
 cp ./.vim/colors/* ~/.vim/colors/
 
