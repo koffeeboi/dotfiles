@@ -1,0 +1,32 @@
+{
+    // Controls if quick suggestions should show up while typing
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    // Controls if suggestions should be accepted with "Enter" - in addition to "Tab". Helps to avoid ambiguity between inserting new lines and accepting suggestions.
+    "editor.acceptSuggestionOnEnter": true,
+    // Controls the delay in ms after which quick suggestions will show up.
+    "editor.quickSuggestionsDelay": 10,
+    // Enable word based suggestions
+    "editor.wordBasedSuggestions": true,
+    // Enable parameter hints
+    "editor.parameterHints": true,
+    "window.zoomLevel": 0,
+    "workbench.activityBar.visible": false,
+    "git.autofetch": false,
+    "git.enabled": false,
+    "files.autoSave": "off",
+    "C_Cpp.intelliSenseEngine": "Default",
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.minimap.enabled": false,
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    },
+    "explorer.confirmDragAndDrop": false,
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+}
