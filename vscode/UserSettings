@@ -16,7 +16,7 @@
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
     "git.autofetch": false,
-    "git.enabled": false,
+    "git.enabled": true,
     "files.autoSave": "off",
     "C_Cpp.intelliSenseEngine": "Default",
     "workbench.colorTheme": "One Dark Pro",
@@ -25,6 +25,9 @@
         "editor.tabSize": 2
     },
     "[css]": {
+        "editor.tabSize": 2
+    },
+    "[html]": {
         "editor.tabSize": 2
     },
     "explorer.confirmDragAndDrop": false,
