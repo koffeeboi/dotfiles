@@ -1,0 +1,64 @@
+Key                                           Description
+--------------------------------------------------------------------------------------------------
+META-ESC                                       Esc key
+META-x                                         Command line
+CTRL-g, META-ESC                               Keyboard quit
+
+CTRL-h b                                       Lists key-bindings with its elisp functions
+CTRL-h f                                       Lists functions documentation (.emacs applicable)
+CTRL-x b                                       List what's in the buffer (switch between frames)
+CTRL-x CTRL-u =                                List arguments
+CTRL-x d                                       List directory
+
+CTRL-tab/shift-tab                             Cycle through windows (open windows)
+C-M-UP/DOWN                                    Up and down buffer frames
+CTRL-1                                         Recenter frame
+CTRL-x 3                                       New Window
+CTRL-x 0                                       Close Window
+
+CTRL-m                                         Move everything after cursor to beginning of line
+CTRL-x +,-,0                                   Zoom +,-,0
+CTRL-Shift-Backspace                           Delete entire line
+
+CTRL-k                                         Delete everything after cursor
+CTRL-x CTRL-f                                  Find file
+CTRL-s                                         Search, iterate forward C-s again
+CTRL-x k                                       Kill current buffer
+CTRL-x 4 0                                     Kill currenter buffer and closes window
+CTRL-/                                         Comment region
+CTRL-?                                         Uncomment region
+
+CTRL-w                                         Cut
+CTRL-c                                         Copy
+CTRL-v                                         Paste
+CTRL-z                                         Undo
+CTRL-g CTRL-z                                  Redo
+
+CTRL-space                                     Mark at cursor position
+CTRL-u CTRL-space
+CTRL-2                                         Indent whole buffer
+
+CTRL-x CTRL-c                                  Exit
+
+
+//TODO: 
+
+        leave color marker behind (rectangle)
+        give minbuffer own entire frame with results on same frame listed
+        find out what nix is?
+             looks like it's for file searching for fast opening for projects? or is just listed buffer
+        Save emacs on some cloud
+        Compiling stuff
+        Orgs-mode
+        helms
+        smex
+        make modeline better
+             powerline
+
+        auto format key
+              just for tabs
+        make emacs faster
+             load stuff or something
+
+
+
