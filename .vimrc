@@ -1,79 +1,64 @@
-﻿"Swapfiles/Backup/Undo file directories; need // for no collisions
-if !isdirectory($HOME . "/.vim")
-    call mkdir($HOME . "/.vim")
-endif
+﻿silent! call mkdir($HOME . "/.vim")
+silent! call mkdir($HOME . "/.vim/temp")
+silent! call mkdir($HOME . "/.vim/temp/backup")
+silent! call mkdir($HOME . "/.vim/temp/swap")
+silent! call mkdir($HOME . "/.vim/temp/undo")
 
-if !isdirectory($HOME . "/.vim/backup")
-    call mkdir($HOME . "/.vim/backup")
-endif
+set backupdir=~/.vim/temp/backup//                      "need // for no collisions
+set directory=~/.vim/temp/swap//
+set undodir=~/.vim/temp/undo//
 
-if !isdirectory($HOME . "/.vim/swap")
-    call mkdir($HOME . "/.vim/swap")
-endif
+"================================================================================================="
 
-if !isdirectory($HOME . "/.vim/undo")
-    call mkdir($HOME . "/.vim/undo")
-endif
+set rtp+=~/.vim/colors
+set rtp+=~/.vim/colors/jjstyle.vim
+set rtp+=~/.vim/autoload/airline/themes
+set rtp+=~/.vim
 
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+call plug#begin('~/.vim/plugged')
+    Plug 'scrooloose/nerdtree'
+    "Plug 'lifepillar/vim-mucomplete'
+    "Plug 'vim-syntastic/syntastic'
+    "Plug 'vim-airline/vim-airline'
+    "Plug 'vim-airline/vim-airline-themes'
+call plug#end()
 
-set runtimepath+=~/.vim
-
-"PLUGINS
-
-"SuperTab
-"if isdirectory($HOME . "/.vim/supertab")
-"    let g:SuperTabCrMapping=1
-"    so ~/.vim/supertab/plugin/supertab.vim
-"    so ~/.vim/supertab/ftplugin/html.vim
-"    so ~/.vim/supertab/ftplugin/xml.vim
-"    helptags ~/.vim/supertab/doc
-"endif
-
-"Visual markers
-"if isdirectory($HOME . "/.vim/visualmarks")
-"    set runtimepath+=~/.vim/visualmarks
-"    helptags ~/.vim/visualmarks/doc
-"endif
+"Plugin settings
+"autocmd VimEnter * AirlineToggleWhitespace              "Turn off whitespace detection
 
 "Airline
-if isdirectory($HOME . "/.vim/vim-airline")
-    set runtimepath+=~/.vim/vim-airline                 "Add airline to runtime
-    set runtimepath+=~/.vim/vim-airline-themes          "Add airline themes to runtime
-    
-    helptags ~/.vim/vim-airline/doc                     "Add airline help.txt to :help airline
-    
-    let g:airline#extensions#tabline#enabled=1          "Enable tabline
-    let g:airline#extensions#tabline#show_buffers=1
-    let g:airline#extensions#tabline#show_splits=1      "Removes tabline filename
-    let g:airline#extensions#tabline#fnamemod=':t'      "Just show the filename (no path) in the tab
-    let g:airline#extensions#tabline#tab_nr_type=1      "Tab number
+"let g:airline#extensions#tabline#enabled=1              "Enable tabline
+"let g:airline#extensions#tabline#show_buffers=1
+"let g:airline#extensions#tabline#show_splits=1          "Removes tabline filename
+"let g:airline#extensions#tabline#fnamemod=':t'          "Just show the filename (no path) in the tab
+"let g:airline#extensions#tabline#tab_nr_type=1          "Tab number
 
-    if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-    endif
+"vim-mucomplete
+"set completeopt+=menuone
+"inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+"inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+"inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+"set completeopt+=noselect
+"let g:mucomplete#enable_auto_at_startup = 1
+"set shortmess+=c                                        "Shut off completion messages
 
-    autocmd VimEnter * AirlineToggleWhitespace          "Turn off whitespace detection
-    if has("gui_running")
-        autocmd VimEnter * AirlineTheme jjstyle_airline 
-    endif
-endif
+"Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
+let g:syntastic_cpp_check_header = 1
 
-"NerdTree
-if isdirectory($HOME . "/.vim/nerdtree")
-    set runtimepath+=~/.vim/nerdtree                     "Add nerdtree directory
-    helptags ~/.vim/nerdtree/doc                         "Add nerdtree help page 
-endif
-"PLUGIN END
+"================================================================================================="
+
+let g:gruvbox_contrast_dark="soft"                      "Soft contrast
 
 if !exists("g:syntax_on")                               "Avoid syntax collision with others
     syntax enable
 endif
 
-"let g:gruvbox_contrast_dark="soft"                      "Soft contrast
-colorscheme jjstyle
+colorscheme jjstyle2
  
 let mapleader=','
 
@@ -102,12 +87,10 @@ set autochdir                                           "Auto change working dir
 set undofile                                            "Maintain undo history between sessions
 set fileencoding=utf8
 set encoding=utf8
-"set bomb                                               "Don't use this for glsl. Corrupts file
-"set cursorline                                         "Highlight cursor current line (NOTE: known to be a slow function, so remove if performance begin to hit)
 
 "Gui options
 if has ("gui_running")
-    "highlight Cursor gui=NONE guifg=black guibg=green
+    "highlight Cursor gui=NONE guibg=darkorange
     set guioptions -=m                                  "Menu bar
     set guioptions -=T                                  "Tool bar
     set guioptions -=r                                  "Right scroll bar
@@ -115,32 +98,18 @@ if has ("gui_running")
     set guitablabel=%t                                  "Only show file name in tab bar
     set guicursor+=a:blinkon0                           "Disable blinking cursor
 
-    set lines=999 columns=999
+    autocmd GUIEnter * set vb t_vb=                     "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
+    "autocmd GUIEnter * AirlineTheme jjstyle_airline
 
     if has ("unix")
-        "set guifont=Inconsolata\ 12
         set guifont=Ubuntu\ Mono\ 12
     elseif has ("win32")
-        "set guifont=
+        set shell=cmd                                  "When using syntastic, for some reason on Windows, a TMP file is created but destroyed... adding this and -c fixes that...
+        set shellcmdflag=/c
         set guifont=Consolas:h11:cANSI:qDRAFT
-
         autocmd GUIEnter * simalt ~x                    "Maximizes window
     endif
-
-    "Fonts
-        "Inconsolata:h12:cANSI:qDRAFT
-        "DejaVu_Sans_Mono_for_Powerline:h10:cANSI:qDRAFT
-        "Consolas:h11:cANSI:qDRAFT
-
-    "YouCompleteMe                                      "GUI only for now. Can't run 64-bit vim in window's terminal emulator, however it is possible. A solution exist though.
-    if isdirectory($HOME . "/.vim/Youcompleteme")
-        let g:ycm_global_ycm_extra_conf = "~/.vim/YouCompleteMeConfigs/.ycm_extra_conf.py"
-        set runtimepath+=~/.vim/Youcompleteme
-        helptags ~/.vim/Youcompleteme/doc
-    endif
 endif 
-
-autocmd GUIEnter * set vb t_vb=                         "Remove bell noise. (NOTE: There are >= 2 rc files loaded. One vimrc and one gvim rc, etc. They might sometimes override each other.)
 
 "Del
 inoremap <C-l> <Del>
@@ -150,8 +119,9 @@ xnoremap p pgvy
 
 "PathToFile FileType NumberOfLines ColumnNumber PercentageThroughFile [see :help statusline to what can add]
 "set statusline=%F\ %y\ [%L\ lines]\ column:\ %c\ %=---%p%%--- "using airline atm so no need for this
+set statusline=%<%F\ %h%m%r%y%=%-14.(%l,%c%V%)\ %P
 
-"jj to escape key
+"Easier escape key
 inoremap jj <ESC>
 
 "Insert a character from normal mode. Press space then enter a character. e.g space space, space enter, space 'i'
@@ -167,8 +137,10 @@ nnoremap <S-s> i<CR><ESC>l
 nnoremap <C-j> mlo<ESC>`l
  
 "Replace string under cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>h :.,$s/\<<C-r><C-w>\>/
+nnoremap <Leader>q :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>w :.,$s/\<<C-r><C-w>\>/
+
+nnoremap <Leader>1 :SyntasticReset<CR>
 
 "Delete buffer without closing
 nnoremap <silent> <Leader>k :bp\|bd#<CR>
@@ -184,10 +156,15 @@ nnoremap <Leader>o :NERDTree<Return>
 nnoremap <Leader>tg :NERDTreeToggle<Return>
 nnoremap <Leader>f :NERDTreeFocus<Return>
 
+"Scroll
+nnoremap <A-k> {
+nnoremap <A-j> }
+
 "Cut, Yank, Paste
 nnoremap ;y m`v`a"dy``
 nnoremap ;p m`v`a"dp``
 nnoremap ;x m`v`a"dx``
+nnoremap ;v v`a
 
 "Tab and buffer cycle
 nnoremap <silent> <C-S-Tab> gT
@@ -201,73 +178,8 @@ nnoremap gb :ls<CR>:buffer<Space>
 "Turn off highlight
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-"Previous error
-nnoremap <F9> :cprevious<Return> 
-
-"Next error
-nnoremap <F10> :cnext<Return>
-
-"Build and open error window
-nnoremap <F11> :make!<Return><ESC>:copen<Return>
-
-"Close error window
-nnoremap <F12> :cclose<Return>
-
 "Custom syntax highlight
 syntax match Note /\<TODO\>\|\<NOTE\>\|\<\cJasper\>\|\<\cjj\>/
 syntax match Fixme /\<\cfixme\>/
 highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
 highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
-
-"Settings
-"let g:visualmarks_buffer_mark = 'l'
-"call visualmarks#SetHighlights([ 
-"    \["buffer", "black", "white",   "black", "white"],
-"    \["a",      "black", "cyan",    "black", "#137b71"],
-"    \["b",      "black", "yellow",  "black", "#ffa500"],
-"    \["c",      "black", "red",     "black", "red"],
-"    \["d",      "black", "red",     "black", "red"],
-"    \["e",      "black", "red",     "black", "red"],
-"\])
-"nnoremap <silent> ma ma:call visualmarks#HighlightMark("a")<CR>
-"nnoremap <silent> mb mb:call visualmarks#HighlightMark("b")<CR>
-"nnoremap <silent> mc mc:call visualmarks#HighlightMark("c")<CR>
-"nnoremap <silent> md md:call visualmarks#HighlightMark("d")<CR>
-"nnoremap <silent> me me:call visualmarks#HighlightMark("e")<CR>
-"nnoremap <silent> <Leader>z :call visualmarks#UnhighlightAll()<CR>
-
-"Smooth scrollling
-"[Modified] https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
-function! SmoothScroll(up)
-    if a:up
-        let scrollaction=""
-    else
-        let scrollaction=""
-    endif
-    exec "normal " . scrollaction
-    redraw
-    let counter = 1
-    let progress = (counter + 0.0) * 100 / &scroll
-    while counter < &scroll
-        let counter += 1
-
-        if progress < 30    "Less than 50% progress
-            "pass
-        elseif progress < 50
-            sleep 1m
-        elseif progress < 70
-            sleep 3m
-        elseif progress < 90
-            sleep 5m
-        else
-            sleep 7m
-        endif
-
-        redraw
-        exec "normal! " . scrollaction
-        let progress = (counter + 0.0) * 100 / &scroll
-    endwhile
-endfunction
-
-nnoremap <C-U> :call SmoothScroll(1)<Enter>
-nnoremap <C-D> :call SmoothScroll(0)<Enter>
