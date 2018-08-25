@@ -1,0 +1,21 @@
+After VM setup or DD image setup.
+
+Connect to network
+
+Capslock to control
+    sudo edit /etc/default/keyboard
+    Set XKBOPTIONS="ctrl:nocaps"
+
+Change keyrate
+    dmenu > manjaro setting > keyboard
+    delay -> 180 
+    rate -> 15
+
+select fastest mirrors to download from
+$ sudo pacman-mirrors --fasttrack 
+
+update manjaro
+$ sudo pacman -Syyu
+
+install package manager
+$ sudo pacman -S yaourt
