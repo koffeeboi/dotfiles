@@ -7,9 +7,8 @@ Capslock to control
     Set XKBOPTIONS="ctrl:nocaps"
 
 Change keyrate
-    dmenu > manjaro setting > keyboard
-    delay -> 180 
-    rate -> 15
+    edit .bashrc
+    xset r rate 180 40
 
 select fastest mirrors to download from
 $ sudo pacman-mirrors --fasttrack 
