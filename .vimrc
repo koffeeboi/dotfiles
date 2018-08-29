@@ -1,4 +1,4 @@
-﻿silent! call mkdir($HOME . "/.vim")
+silent! call mkdir($HOME . "/.vim")
 silent! call mkdir($HOME . "/.vim/temp")
 silent! call mkdir($HOME . "/.vim/temp/backup")
 silent! call mkdir($HOME . "/.vim/temp/swap")
@@ -12,43 +12,10 @@ set undodir=~/.vim/temp/undo//
 
 set rtp+=~/.vim/colors
 set rtp+=~/.vim/colors/jjstyle.vim
-set rtp+=~/.vim/autoload/airline/themes
 set rtp+=~/.vim
-
-call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree'
-    "Plug 'lifepillar/vim-mucomplete'
-    "Plug 'vim-syntastic/syntastic'
-    "Plug 'vim-airline/vim-airline'
-    "Plug 'vim-airline/vim-airline-themes'
-call plug#end()
 
 "Plugin settings
 "autocmd VimEnter * AirlineToggleWhitespace              "Turn off whitespace detection
-
-"Airline
-"let g:airline#extensions#tabline#enabled=1              "Enable tabline
-"let g:airline#extensions#tabline#show_buffers=1
-"let g:airline#extensions#tabline#show_splits=1          "Removes tabline filename
-"let g:airline#extensions#tabline#fnamemod=':t'          "Just show the filename (no path) in the tab
-"let g:airline#extensions#tabline#tab_nr_type=1          "Tab number
-
-"vim-mucomplete
-"set completeopt+=menuone
-"inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
-"inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
-"inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
-"set completeopt+=noselect
-"let g:mucomplete#enable_auto_at_startup = 1
-"set shortmess+=c                                        "Shut off completion messages
-
-"Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
-let g:syntastic_cpp_check_header = 1
 
 "================================================================================================="
 
@@ -58,8 +25,6 @@ if !exists("g:syntax_on")                               "Avoid syntax collision 
     syntax enable
 endif
 
-colorscheme jjstyle2
- 
 let mapleader=','
 
 set wildmode=list:longest,full                          "List preview window for tab completion
@@ -121,9 +86,6 @@ xnoremap p pgvy
 "set statusline=%F\ %y\ [%L\ lines]\ column:\ %c\ %=---%p%%--- "using airline atm so no need for this
 set statusline=%<%F\ %h%m%r%y%=%-14.(%l,%c%V%)\ %P
 
-"Easier escape key
-inoremap jj <ESC>
-
 "Insert a character from normal mode. Press space then enter a character. e.g space space, space enter, space 'i'
 nnoremap <Space> i_<Esc>r
 
@@ -140,8 +102,6 @@ nnoremap <C-j> mlo<ESC>`l
 nnoremap <Leader>q :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>w :.,$s/\<<C-r><C-w>\>/
 
-nnoremap <Leader>1 :SyntasticReset<CR>
-
 "Delete buffer without closing
 nnoremap <silent> <Leader>k :bp\|bd#<CR>
  
@@ -150,21 +110,6 @@ nnoremap <A--> <C-w>-
 nnoremap <A-=> <C-w>+
 nnoremap <A-,> <C-w><
 nnoremap <A-.> <C-w>>
- 
-"Nerdtree shortcuts
-nnoremap <Leader>o :NERDTree<Return>
-nnoremap <Leader>tg :NERDTreeToggle<Return>
-nnoremap <Leader>f :NERDTreeFocus<Return>
-
-"Scroll
-nnoremap <A-k> {
-nnoremap <A-j> }
-
-"Cut, Yank, Paste
-nnoremap ;y m`v`a"dy``
-nnoremap ;p m`v`a"dp``
-nnoremap ;x m`v`a"dx``
-nnoremap ;v v`a
 
 "Tab and buffer cycle
 nnoremap <silent> <C-S-Tab> gT
