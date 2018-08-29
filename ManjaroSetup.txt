@@ -18,6 +18,10 @@ Change keyrate and add redshift to startup
     xset r rate 180 40
     redshift -l 37.3391655:-121.89472222 &
 
+Copy i3 config
+    # Added volume mixer control
+    ~/.i3/config
+
 Vim settings from dotfiles
 
 select fastest mirrors to download from
