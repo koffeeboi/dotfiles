@@ -47,4 +47,8 @@ visual studio code
 pulseaudio
 alsa-tools
 
-Set firefox default browser
+Set firefox default browser not just in browser but also here:
+ Change palemoon to firefox in ~/.config/mimeapps.list
+ Change palemoon binding in i3 (if didn't already do so when copying config file) config file
+
+    
