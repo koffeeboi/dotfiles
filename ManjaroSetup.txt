@@ -18,6 +18,9 @@ Change keyrate and add redshift to startup
     xset r rate 180 40
     redshift -l 37.3391655:-121.89472222 &
 
+    # Monitor setup
+    xrandr --output DP1 --auto --right-of eDP1
+
 Copy i3 config
     # Added volume mixer control
     ~/.i3/config
