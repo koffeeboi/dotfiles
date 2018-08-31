@@ -21,6 +21,23 @@ Change keyrate and add redshift to startup
     # Monitor setup
     xrandr --output DP1 --auto --right-of eDP1
 
+Change mouse to slower speed
+    Make /etc/X11/xorg.conf.d/99-libinput-custom-config.conf
+    With:
+    Section "InputClass"
+      Identifier "<something to identify this snippet>"
+      MatchDriver "libinput"
+      MatchProduct "<substring of the device name>"
+      Option "AccelSpeed" "<e.g. 0.3>"
+    EndSection
+
+    # Find mouse name
+    xinput --list 
+    # Verify mouse property
+    xinput --list-props <id>
+
+    reboot
+
 Copy i3 config
     # Added volume mixer control
     ~/.i3/config
