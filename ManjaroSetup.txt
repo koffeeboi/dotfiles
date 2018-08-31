@@ -38,6 +38,7 @@ $ sudo pacman -S yaourt
 
 
 Programs to install:
+gvim
 firefox
 neofetch
 redshift
