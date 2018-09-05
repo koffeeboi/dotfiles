@@ -38,6 +38,9 @@ Change mouse to slower speed
 
     reboot
 
+Change bash prompt
+    PS1 needs to have '\w' somewhere to display full directory path
+
 Copy i3 config
     # Added volume mixer control
     ~/.i3/config
