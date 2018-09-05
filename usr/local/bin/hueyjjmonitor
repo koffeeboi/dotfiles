@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+xrandr --output eDP1 --off # Turn off laptop display
+xrandr --output HDMI2 --primary # Make center monitor primary
+xrandr --output HDMI2 --right-of DP1 # Align dual monitors
