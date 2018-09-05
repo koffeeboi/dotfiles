@@ -18,6 +18,12 @@ Change keyrate and add redshift to startup
     xset r rate 180 40
     redshift -l 37.3391655:-121.89472222 &
 
+    # xrandr list monitors
+    xrandr
+
+    # Turn off laptop
+    xrandr --output eDP1 --off
+
     # Monitor setup
     xrandr --output DP1 --auto --right-of eDP1
 
