@@ -16,21 +16,24 @@ Capslock to control
     sudo edit /etc/default/keyboard
     Set XKBOPTIONS="ctrl:nocaps"
 
-Change keyrate and add redshift to startup
+Change keyrate 
     vim ~/.profile
     
     # Add the following lines
     export EDITOR=/usr/bin/vim
     export BROWSER=/usr/bin/firefox
     xset r rate 180 40
-    redshift -l 37.3391655:-121.89472222 &
+    udiskie & # Automounting program
     
-    # Use personal scripts if available github.com/hueyjj/scripts
-    xrandr # xrandr list monitors
-    xrandr --output eDP1 --off # Turn off laptop
-    xrandr --output DP1 --auto --right-of eDP1 # Monitor setup
-
 OR, copy .profile from dotfiles and modify as needed
+
+# Alternative to f.lux
+Add redshift-startup.sh in /etc/X11/xinit/xinitrc.d/
+    #!/usr/bin/sh
+    redshift -l 37.3391655:-121.89472222 &> /dev/null &
+Then chmod +x redshift-startup.sh
+
+Use personal scripts if available github.com/hueyjj/scripts
 
 Change mouse to slower speed
     xinput --list # Find mouse name
