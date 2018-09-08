@@ -82,3 +82,5 @@ visual studio code
 pulseaudio
 alsa-tools
 
+
+Setup zsh with oh-my-zsh
