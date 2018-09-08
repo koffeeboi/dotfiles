@@ -30,8 +30,17 @@ OR, copy .profile from dotfiles and modify as needed
 # Alternative to f.lux
 Add redshift-startup.sh in /etc/X11/xinit/xinitrc.d/
     #!/usr/bin/sh
-    redshift -l 37.3391655:-121.89472222 &> /dev/null &
+    redshift &> /dev/null &
 Then chmod +x redshift-startup.sh
+Add ~/.config/redshift/redshift.config
+    [redshift]
+    temp-day=6500
+    temp-night=3800
+    location-provider=manual
+
+    [manual]
+    lat=37.3391655
+    lon=-121.89472222
 
 Use personal scripts if available github.com/hueyjj/scripts
 
