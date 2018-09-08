@@ -59,6 +59,9 @@ Copy i3 config
 
 Vim settings from dotfiles
 
+Automount program "udiskie"
+    Add `udiskie &` to ~/.xinitrc
+
 Set firefox default browser not just in browser (preferences) but also here:
  Change palemoon to firefox in ~/.config/mimeapps.list
  Change palemoon binding in i3 (if didn't already do so when copying config file) config file
