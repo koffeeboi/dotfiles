@@ -35,6 +35,7 @@ set number                                              "Line number
 set tabstop=4                                           "Tab to 4 spaces
 set shiftwidth=4
 
+set mouse=a                                             "Enable mousewheel scrolling
 set expandtab
 set autoindent
 set smartindent
