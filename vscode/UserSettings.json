@@ -34,5 +34,6 @@
     "workbench.colorCustomizations": {
         "tab.activeModifiedBorder": "#B90F0A",
         "tab.activeBorder": "#FF7417"
-    }
+    },
+    "todo.timekeeping.created.enabled": true
 }
