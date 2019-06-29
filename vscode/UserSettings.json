@@ -1,12 +1,11 @@
 {
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
     "workbench.colorTheme": "One Monokai",
-    "workbench.iconTheme": "vscode-icons",
     "workbench.activityBar.visible": false,
     "editor.smoothScrolling": true,
     "editor.mouseWheelScrollSensitivity": 2,
     "merge-conflict.decorators.enabled": false,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0,
     "[html]": {
         "editor.tabSize": 2
     },
@@ -29,12 +28,16 @@
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "editor.minimap.enabled": false,
-    "vsicons.dontShowNewVersionMessage": true,
-    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
+    "window.title": "${dirty}${activeFolderMedium}${separator}${rootName}${separator}${appName}",
+    "workbench.editor.highlightModifiedTabs": true,
     "workbench.colorCustomizations": {
         "tab.activeModifiedBorder": "#B90F0A",
         "tab.activeBorder": "#FF7417"
     },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "workbench.iconTheme": "vscode-icons",
     "todo.timekeeping.created.enabled": true,
-    "workbench.editor.labelFormat": "short"
+    "workbench.editor.labelFormat": "short",
+    "breadcrumbs.enabled": true,
+    "vsicons.dontShowNewVersionMessage": true
 }
