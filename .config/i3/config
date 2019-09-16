@@ -165,5 +165,8 @@ exec --no-startup-id xrandr --output DVI-0 --auto --left-of HDMI-0
 exec --no-startup-id feh --randomize --bg-fill ~/Wallpaper/*
 # Fix control+shift+e hijack from emoji
 exec --no-startup-id ibus-daemon -x
+# Redshift
+exec_always --no-startup-id redshift-gtk
+
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
