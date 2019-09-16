@@ -1,0 +1,12 @@
+Some emoji thing is hijacking ctrl+shift+e in almost all linux system.
+
+$ ibus-setup
+Disable control+shift+e under Emoji tab.
+
+Then, make sure this is added either in i3 or some config file at startup.
+
+# For i3
+exec --no-startup-id ibus-daemon -x
+
+# For non-i3
+ibus-daemon -x
