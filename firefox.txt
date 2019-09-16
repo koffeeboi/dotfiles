@@ -1,0 +1,6 @@
+# Mouse scroll
+about:config
+    general.smoothScroll.currentVelocityWeighting: 0
+    general.smoothScroll.mouseWheel.durationMaxMS: 250
+    general.smoothScroll.stopDecelerationWeighting: 0.82
+    mousewheel.min_line_scroll_amount: 40
