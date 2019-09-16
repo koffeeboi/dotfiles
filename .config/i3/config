@@ -155,3 +155,6 @@ bar {
         position top
         status_command i3status
 }
+
+# Dual monitor order setup
+exec --no-startup-id xrandr --output DVI-0 --auto --left-of HDMI-0
