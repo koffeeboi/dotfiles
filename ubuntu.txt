@@ -1,0 +1,15 @@
+Gnome tweak tool
+    Theme:
+        Applications: Adapta-Notko
+        Icons: Papirus
+        Shell: Adapta-Nokto
+    Extensions:
+        Alt-tab switcher popup delay removal
+        Dash to panel
+        Multi monitors add-on
+        User themes
+    Workspaces:
+        Dynamic Workspaces
+        Display Handling:
+            Workspaces span displays
+
