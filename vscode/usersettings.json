@@ -36,5 +36,6 @@
     "workbench.editor.labelFormat": "short",
     "breadcrumbs.enabled": true,
     "vsicons.dontShowNewVersionMessage": true,
-    "workbench.colorTheme": "Adapta Nokto"
+    "workbench.colorTheme": "Adapta Nokto",
+    "window.menuBarVisibility": "toggle"
 }
