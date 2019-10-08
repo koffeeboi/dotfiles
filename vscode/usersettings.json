@@ -3,7 +3,13 @@
     "editor.smoothScrolling": true,
     "editor.mouseWheelScrollSensitivity": 2,
     "merge-conflict.decorators.enabled": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
+    "[css]": {
+        "editor.tabSize": 2
+    },
+    "[scss]": {
+        "editor.tabSize": 2
+    },
     "[html]": {
         "editor.tabSize": 2
     },
@@ -37,5 +43,5 @@
     "breadcrumbs.enabled": true,
     "vsicons.dontShowNewVersionMessage": true,
     "workbench.colorTheme": "Adapta Nokto",
-    "window.menuBarVisibility": "toggle"
+    "window.menuBarVisibility": "toggle",
 }
