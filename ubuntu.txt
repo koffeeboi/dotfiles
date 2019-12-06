@@ -13,3 +13,10 @@ Gnome tweak tool
         Display Handling:
             Workspaces span displays
 
+Capslock to control (if not available on the keyboard firmware)
+    Edit /etc/default/keyboard
+    Set XKBOPTIONS="ctrl:nocaps"
+
+Keyrate
+    gsettings set org.gnome.desktop.peripherals.keyboard delay 180
+    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 15

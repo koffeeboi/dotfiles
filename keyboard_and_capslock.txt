@@ -1,8 +1,0 @@
-Capslock to control
-    Edit /etc/default/keyboard
-    Set XKBOPTIONS="ctrl:nocaps"
-
-Keyrate
-    gsettings set org.gnome.desktop.peripherals.keyboard delay 180
-    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 15
-   
