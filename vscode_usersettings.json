@@ -43,5 +43,5 @@
     "breadcrumbs.enabled": true,
     "vsicons.dontShowNewVersionMessage": true,
     "workbench.colorTheme": "Adapta Nokto",
-    "window.menuBarVisibility": "toggle",
+    "window.menuBarVisibility": "toggle"
 }

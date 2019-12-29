@@ -27,7 +27,6 @@ set autoindent
 set smartindent
 set nowrap
 set laststatus=2                                        "Status bar
-set foldmethod=indent                                   "Fold stuff based on indent level
 set textwidth=0                                         "Something to do with auto wrapping even if nowrap is set
 set wrapmargin=0
 set autoread                                            "Auto reload file if changed somewhere else
