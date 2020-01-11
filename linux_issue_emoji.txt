@@ -1,12 +1,9 @@
-Some emoji thing is hijacking ctrl+shift+e in almost all linux system.
+Emoji issue: https://github.com/microsoft/vscode/issues/48480
 
+A global emoji thing is hijacking ctrl+shift+e in almost all linux system.
+
+Dsable control+shift+e under Emoji tab in ibus-setup.
 $ ibus-setup
-Disable control+shift+e under Emoji tab.
 
-Then, make sure this is added either in i3 or some config file at startup.
-
-# For i3
-exec --no-startup-id ibus-daemon -x
-
-# For non-i3
-ibus-daemon -x
+Add this to .profile:
+    GTK_IM_MODULE=ibus code
