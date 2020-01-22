@@ -4,3 +4,7 @@ about:config
     general.smoothScroll.mouseWheel.durationMaxMS: 250
     general.smoothScroll.stopDecelerationWeighting: 0.82
     mousewheel.min_line_scroll_amount: 40
+
+(Enable) General > Startup > Restore previous session
+(Disable) General > Tabs > Ctrl + Tab cycles through tabs in recently used order
+(Disable) Privacy & Security > Logins and Password > Ask to save logins and passwords for websites

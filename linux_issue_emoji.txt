@@ -7,3 +7,5 @@ $ ibus-setup
 
 Add this to .profile:
     GTK_IM_MODULE=ibus code
+
+This issue might have been fixed in recent Ubuntu updates.
