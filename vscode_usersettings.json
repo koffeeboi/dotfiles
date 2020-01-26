@@ -28,8 +28,6 @@
     },
     "explorer.confirmDragAndDrop": false,
     "emmet.extensionsPath": "",
-    "workbench.editor.enablePreview": false,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
     "editor.minimap.enabled": false,
     "window.title": "${dirty}${activeFolderMedium}${separator}${rootName}${separator}${appName}",
     "workbench.editor.highlightModifiedTabs": true,
