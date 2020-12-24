@@ -1,18 +1,14 @@
 silent! call mkdir($HOME . "/.vim")
-silent! call mkdir($HOME . "/.vim/temp")
-silent! call mkdir($HOME . "/.vim/temp/backup")
-silent! call mkdir($HOME . "/.vim/temp/swap")
-silent! call mkdir($HOME . "/.vim/temp/undo")
+silent! call mkdir($HOME . "/.vim/backup")
+silent! call mkdir($HOME . "/.vim/swap")
+silent! call mkdir($HOME . "/.vim/undo")
 
 set rtp+=~/.vim
 
-set backupdir=~/.vim/temp/backup//                      "need // for no collisions
-set directory=~/.vim/temp/swap//
-set undodir=~/.vim/temp/undo//
-
-if !exists("g:syntax_on")                               "Avoid syntax collision with others
-    syntax enable
-endif
+"Need // for no collisions
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 
 set wildmode=list:longest,full                          "List preview window for tab completion
 set wildmenu                                            "Show and move to next tab completion
@@ -34,38 +30,25 @@ set incsearch                                           "Live highlighting
 set bs=indent,eol,start                                 "Backspace over everything in insert mode
 set vb t_vb=                                            "Mute system beep and screen flash
 set linespace=0                                         "Fix special symbol alignment issue
-set autochdir                                           "Auto change working directory when opening/viewing files"
+set autochdir                                           "Change into working directory when opening/viewing files"
 set undofile                                            "Maintain undo history between sessions
 set fileencoding=utf8
 set encoding=utf8
 
-"Paste more than once hack
-xnoremap p pgvy
-
 "PathToFile FileType NumberOfLines ColumnNumber PercentageThroughFile [see :help statusline to what can add]
-"set statusline=%F\ %y\ [%L\ lines]\ column:\ %c\ %=---%p%%--- "using airline atm so no need for this
 set statusline=%<%F\ %h%m%r%y%=%-14.(%l,%c%V%)\ %P
+
+"Paste hack: Pastes, then yank pasted. Without this, the yank register is consumed and cannot be pasted again.
+xnoremap p pgvy
 
 let mapleader=','
 
 "Delete buffer without closing
 nnoremap <silent> <Leader>k :bp\|bd#<CR>
  
-"Increase/Decrease buffer window height/width
-nnoremap <A--> <C-w>-
-nnoremap <A-=> <C-w>+
-nnoremap <A-,> <C-w><
-nnoremap <A-.> <C-w>>
-
-"Tab and buffer cycle
+"Cycle through buffer using '(' or ')'
 nnoremap <silent> ( :bp<Return>
 nnoremap <silent> ) :bn<Return>
 
-"Turn off highlight
+"Turn off highlight after search with ctrl+l
 nnoremap <silent> <C-l> :nohl<CR><C-l>
-
-"Custom syntax highlight
-syntax match Note /\<TODO\>\|\<NOTE\>\|\<\cJasper\>\|\<\cjj\>/
-syntax match Fixme /\<\cfixme\>/
-highlight! Note ctermfg=green ctermbg=black guifg=black guibg=#00AF5F
-highlight! Fixme ctermfg=red ctermbg=black guifg=black guibg=red
