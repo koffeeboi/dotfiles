@@ -37,6 +37,9 @@ set encoding=utf8
 set belloff=all                                         "Stops some white flashing or something
 set ignorecase                                          "IncSearch is case insensitive
 set smartcase                                           "IncSearch becomes case sensitive if pattern contains an uppercase letter
+set wrap
+set breakindent
+set linebreak
 
 "PathToFile FileType NumberOfLines ColumnNumber PercentageThroughFile [see :help statusline to what can add]
 set statusline=%<%F\ %h%m%r%y%=%-14.(%l,%c%V%)\ %P
@@ -44,7 +47,7 @@ set statusline=%<%F\ %h%m%r%y%=%-14.(%l,%c%V%)\ %P
 if has ("gui_running")
     set guioptions -=m                                  "Menu bar
     set guioptions -=T                                  "Tool bar
-    set guioptions -=r                                  "Right scroll bar
+    set guioptions +=r                                  "Right scroll bar
     set guioptions -=L                                  "Left scroll bar
     set guitablabel=%t                                  "Only show file name in tab bar
     set guicursor+=a:blinkon0                           "Disable blinking cursor
@@ -64,6 +67,7 @@ if has ("gui_running")
         hi Normal guifg=#323232 guibg=#F9FAFA
 
         " Groups used in the 'highlight' and 'guicursor' options default value.
+        hi EndOfBuffer          guifg=#323232 guibg=#F9FAFA
         hi ErrorMsg             guibg=Red guifg=White
         hi IncSearch            guibg=#323232 guifg=DarkOrange
         hi ModeMsg              gui=bold
@@ -121,3 +125,6 @@ nnoremap <silent> ) :bn<Return>
 
 "Turn off highlight after search with ctrl+l
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+"Open file under cursor using default program..
+nnoremap <F11> Vy:call system('start <C-r>"')<Return>
