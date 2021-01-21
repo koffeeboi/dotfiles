@@ -144,10 +144,11 @@ highlight TaskWeekly            gui=none guibg=#8D53CC guifg=black
 highlight TaskMonthly           gui=none guibg=#70568D guifg=black
 
 highlight TaskToday             gui=none guibg=#3FFF68 guifg=black
+highlight TaskTomorrow          gui=none guibg=#FF41DE guifg=black
 highlight TaskYesterday         gui=none guibg=#54AB67 guifg=black
 
-highlight TaskTomorrow          gui=none guibg=#FF41DE guifg=black
 highlight TaskFuture            gui=none guibg=#B642A2 guifg=black
+highlight TaskOld               gui=none guibg=#4F7658 guifg=black
 
 augroup HighlightTask
     au!
@@ -171,10 +172,11 @@ augroup HighlightTask
     autocmd WinEnter,VimEnter * call matchadd('TaskMonthly', '@monthly', -1)
 
     autocmd WinEnter,VimEnter * call matchadd('TaskToday', '@today', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskTomorrow', '@tomorrow', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskYesterday', '@yesterday', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskTomorrow', '@tomorrow', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskFuture', '@future', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskOld', '@old', -1)
 augroup END
 
 let mapleader="\<Space>"
@@ -204,8 +206,8 @@ command! -nargs=0 TaskFindDone :vimgrep /^\s*\CDONE/g % <BAR>
 nnoremap <Leader>fd :TaskFindDone<CR>
 command! -nargs=0 TaskFindCanceled :vimgrep /^\s*\CCANCELED/g % <BAR>
 nnoremap <Leader>fc :TaskFindCanceled<CR>
-"command! -nargs=0 TaskFindTodo :vimgrep /^\s*\CTODO/g % <BAR>
-"nnoremap <Leader>ft :TaskFindTodo<CR>
+command! -nargs=0 TaskFindAllTask :vimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWAITING\|^\s*\CDONE\|^\s*\CCANCELED/g % <BAR>
+nnoremap <Leader>fa :TaskFindAllTask<CR>
 
 "Writes date in this format: 2021-01-14 Thu 2:57:57 PM
 "Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
