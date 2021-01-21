@@ -54,6 +54,7 @@ set nowrap
 set breakindent
 set linebreak
 set cursorline
+set clipboard=unnamed
 
 set statusline =
 set statusline +=%0*\[%n]                                                   "Buffernr
@@ -90,6 +91,8 @@ nnoremap <silent> ) :bn<RETURN>
 "Turn off highlight after search with ctrl+l
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
+nnoremap <f4> :e ~/Dropbox/TODO.txt<CR>
+
 nnoremap <f5> :so $myvimrc<CR>
 nnoremap <f6> :e $myvimrc<CR>
 
@@ -121,120 +124,88 @@ nnoremap <f6> :e $myvimrc<CR>
 "nnoremap <Leader>k :KillBuffer<CR>
 
 "----------------------todo/task manager--------------------------
-"How to use: 
-"All of the keys follow a mnemonic pattern and are close enough to be pressed with one hand.
-"The only time you wouldn't use one-hand + mouse combo is when you're writing the task.
-"For changing task state, archiving, and displaying the task list, these all should be
-"done with a mouse click (to move your cursor on the task line) and one-handed key presses.
-
-"To create a new task example
-" 1. Anywhere
-" 2. <Leader>n
-" 3. ???
-" 4. Profit
-
-"To change to started state example
-" 1. Single mouse click on a TODO line, or move your cursor on the line.
-" 2. Change state to STARTED by pressing <Leader>s.
-" 3. ???
-" 4. Profit
-
-"To change to done state example
-" 1. Single mouse click on a STARTED line, or move your cursor on the line.
-" 2. Change state to DONE by pressing <Leader>d.
-" 3. ???
-" 4. Profit
-
-"To change to canceled state example
-" 1. Single mouse click on a TODO line, or move your cursor on the line.
-" 2. Change state to CANCELED by pressing <Leader>c.
-" 3. ???
-" 4. Profit
-
-"To change a non-task line into a TODO line
-" 1. Single mouse click on a line with no task keyword, or move your cursor on the line.
-" 2. Change state to TODO state by pressing <Leader>g.
-" 3. ???
-" 4. Profit
-
-"To archive tasks/any lines
-" 1. (Windows 10), triple click and hold a TODO line, or visual block select the lines.
-" 2. Drag down or whatever. Should be selecting ENTIRE lines.
-" 3. Press <Leader>a
-" 4. Archived.
-" 5. ???
-" 6. Profit
-
-"There'll be some weird behaviors, but if you're aware of them and consistent in using it the right way
-"Then they really aren't a big problem.
 
 highlight TaskTodo              gui=bold guifg=#D70087
 highlight TaskStarted           gui=bold guifg=#124DAD
+highlight TaskWaiting           gui=bold guifg=#A0238A
 highlight TaskDone              gui=bold guifg=#12AD66
 highlight TaskCanceled          gui=bold guifg=#D64144
+
+highlight TaskTextEmphasis      gui=none guifg=#E47B00
 highlight TaskLabels            gui=bold guifg=#3487AF
 highlight TaskTags              gui=none guifg=#878787
+
 highlight TaskCriticalTag       gui=none guibg=#FF4C4C guifg=black
 highlight TaskHighTag           gui=none guibg=#FFAC41 guifg=black
 highlight TaskLowTag            gui=none guibg=#FFE634 guifg=black
-highlight TaskDaily             gui=none guibg=#3FFF68 guifg=black
-highlight TaskWeekly            gui=none guibg=#BE99FF guifg=black
-highlight TaskMonthly           gui=none guibg=#956EDB guifg=black
+
+highlight TaskDaily             gui=none guibg=#9939FF guifg=black
+highlight TaskWeekly            gui=none guibg=#8D53CC guifg=black
+highlight TaskMonthly           gui=none guibg=#70568D guifg=black
+
 highlight TaskToday             gui=none guibg=#3FFF68 guifg=black
-highlight TaskYesterday         gui=none guibg=#2ED351 guifg=black
-highlight TaskLastWeek          gui=none guibg=#23A03D guifg=black
-highlight TaskTomorrow          gui=none guibg=#A0238A guifg=black
-highlight TaskTextEmphasis      gui=none guifg=#E47B00
+highlight TaskYesterday         gui=none guibg=#54AB67 guifg=black
+
+highlight TaskTomorrow          gui=none guibg=#FF41DE guifg=black
+highlight TaskFuture            gui=none guibg=#B642A2 guifg=black
+
 augroup HighlightTask
     au!
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskTodo', 'TODO', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskStarted', 'STARTED', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskDone', 'DONE', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskCanceled', 'CANCELED', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskLabels', '^.*:$', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskTags', '@\S*(.*)\|@\S*', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskDaily', '@daily', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskWeekly', '@weekly', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskMonthly', '@monthly', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskToday', '@today', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskYesterday', '@yesterday', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskLastWeek', '@lastweek', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskTomorrow', '@tomorrow', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskCriticalTag', '@critical', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskHighTag', '@high', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskLowTag', '@low', -1)
-    autocmd WinEnter,VimEnter * :silent! call matchadd('TaskTextEmphasis', '`.\{-}`\|\*.\{-}\*', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskTodo', 'TODO', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskStarted', 'STARTED', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskWaiting', 'WAITING', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskTextEmphasis', '`.\{-}`\|\*.\{-}\*', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskLabels', '^.*:$', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskTags', '@\S*(.*)\|@\S*', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskCriticalTag', '@critical', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskHighTag', '@high', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskLowTag', '@low', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskDaily', '@daily', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskWeekly', '@weekly', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskMonthly', '@monthly', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskToday', '@today', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskYesterday', '@yesterday', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskTomorrow', '@tomorrow', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskFuture', '@future', -1)
 augroup END
 
 let mapleader="\<Space>"
 
 "Used to display vimgrep results, a.k.a the actual 'task list'/'agenda'
-function! ToggleTaskQuickFixWindow()
+function! ToggleTaskList()
     if empty(filter(getwininfo(), "v:val.quickfix"))
         copen
     else
         cclose
     endif
 endfunction
-command! -nargs=0 TaskQuickFixWindow :call ToggleTaskQuickFixWindow()
-nnoremap <Leader>w :TaskQuickFixWindow<CR>
+command! -nargs=0 TaskList :call ToggleTaskList()
+nnoremap <Leader>l :TaskList<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprevious<CR>
 
 
-"Search for all TODO/STARTED/DONE/CANCELED tasks and displays them in quickfix window
-" <Leader>ft for TODO
-" <Leader>fs for STARTED
-" <Leader>fd for DONE
-" <Leader>fc for CANCELED
+"Search for all TODO/STARTED/WAITING -> DONE/CANCELED tasks and displays them in quickfix window
 command! -nargs=0 TaskFindTodo :vimgrep /^\s*\CTODO/g % <BAR>
 nnoremap <Leader>ft :TaskFindTodo<CR>
 command! -nargs=0 TaskFindStarted :vimgrep /^\s*\CSTARTED/g % <BAR>
 nnoremap <Leader>fs :TaskFindStarted<CR>
+command! -nargs=0 TaskFindWaiting :vimgrep /^\s*\CWAITING/g % <BAR>
+nnoremap <Leader>fw :TaskFindWaiting<CR>
 command! -nargs=0 TaskFindDone :vimgrep /^\s*\CDONE/g % <BAR>
 nnoremap <Leader>fd :TaskFindDone<CR>
 command! -nargs=0 TaskFindCanceled :vimgrep /^\s*\CCANCELED/g % <BAR>
 nnoremap <Leader>fc :TaskFindCanceled<CR>
+"command! -nargs=0 TaskFindTodo :vimgrep /^\s*\CTODO/g % <BAR>
+"nnoremap <Leader>ft :TaskFindTodo<CR>
 
 "Writes date in this format: 2021-01-14 Thu 2:57:57 PM
 "Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
@@ -244,6 +215,7 @@ nnoremap <Leader>n :TaskNew<CR>5l
 "Add @opened/@started/@closed/@canceled tag to task state transition
 command! -nargs=0 TaskAddOpenedTime put =strftime(' @opened(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddStartedTime put =strftime(' @started(%m-%d-%Y %X)')
+command! -nargs=0 TaskAddWaitingTime put =strftime(' @waiting(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
 
@@ -252,20 +224,21 @@ command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
 "<Leader>s Changes task state to STARTED and appends an @started tag at the end.
 "<Leader>d Changes task state to DONE and appends an @done tag at the end.
 "<Leader>c Changes task state to CANCELED and appends an @canceled tag at the end.
-nnoremap  <Leader>t mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>0eciwTODO<ESC>`t
-nnoremap  <Leader>s mtA<ESC>:TaskAddStartedTime<CR>k<S-j>0eciwSTARTED<ESC>`t
-nnoremap  <Leader>d mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwDONE<ESC>`t
-nnoremap  <Leader>c mtA<ESC>:TaskAddCanceledTime<CR>k<S-j>0eciwCANCELED<ESC>`t
+nnoremap  <Leader>t mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
+nnoremap  <Leader>s mtA<ESC>:TaskAddStartedTime<CR>k<S-j>0eciwSTARTED<ESC>`t:w<CR>
+nnoremap  <Leader>w mtA<ESC>:TaskAddWaitingTime<CR>k<S-j>0eciwWAITING<ESC>`t:w<CR>
+nnoremap  <Leader>d mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwDONE<ESC>`t:w<CR>
+nnoremap  <Leader>c mtA<ESC>:TaskAddCanceledTime<CR>k<S-j>0eciwCANCELED<ESC>`t:w<CR>
 
 "Prepends a line with TODO and appends @opened tag at the end.
 "Use this when the task wasn't created using :TaskNew or <Leader>n
-nnoremap  <Leader>g mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>ITODO <ESC>`t
+nnoremap  <Leader>g mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>ITODO <ESC>`t:w<CR>
 
 "Use visual block to select the lines to archive then press <Leader>a.
 "This will move everything after the first ARCHIVE keyword found, prepending
 "all selected lines with a '> ' after everything is moved.
 "For Windows (or  maybe other OS), it might be faster to triple click and drag the lines
 "to visually select the lines, then press <Leader>a.
-vnoremap  <Leader>a :s/^/> /g<CR>:nohl<CR>gvxmt/^\CARCHIVE:$<CR>o<ESC><S-v>[p`t:w<CR>:e<CR>
+vnoremap  <Leader>a :s/^/> /g<CR>gvxmt/^\CARCHIVE:$<CR>:nohl<CR>o<ESC><S-v>[p`t:w<CR>:e<CR>
 
 "----------------------end of task todo/task manager----------------------
