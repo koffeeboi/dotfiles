@@ -197,17 +197,17 @@ nnoremap <C-p> :cprevious<CR>
 
 "Search for all TODO/STARTED/WAITING -> DONE/CANCELED tasks and displays them in quickfix window
 command! -nargs=0 TaskFindTodo :vimgrep /^\s*\CTODO/g % <BAR>
-nnoremap <Leader>ft :TaskFindTodo<CR>
+nnoremap <Leader>ft mt:TaskFindTodo<CR>`t
 command! -nargs=0 TaskFindStarted :vimgrep /^\s*\CSTARTED/g % <BAR>
-nnoremap <Leader>fs :TaskFindStarted<CR>
+nnoremap <Leader>fs mt:TaskFindStarted<CR>`t
 command! -nargs=0 TaskFindWaiting :vimgrep /^\s*\CWAITING/g % <BAR>
-nnoremap <Leader>fw :TaskFindWaiting<CR>
+nnoremap <Leader>fw mt:TaskFindWaiting<CR>`t
 command! -nargs=0 TaskFindDone :vimgrep /^\s*\CDONE/g % <BAR>
-nnoremap <Leader>fd :TaskFindDone<CR>
+nnoremap <Leader>fd mt:TaskFindDone<CR>`t
 command! -nargs=0 TaskFindCanceled :vimgrep /^\s*\CCANCELED/g % <BAR>
-nnoremap <Leader>fc :TaskFindCanceled<CR>
+nnoremap <Leader>fc mt:TaskFindCanceled<CR>`t
 command! -nargs=0 TaskFindAllTask :vimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWAITING\|^\s*\CDONE\|^\s*\CCANCELED/g % <BAR>
-nnoremap <Leader>fa :TaskFindAllTask<CR>
+nnoremap <Leader>fa mt:TaskFindAllTask<CR>`t
 
 "Writes date in this format: 2021-01-14 Thu 2:57:57 PM
 "Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
