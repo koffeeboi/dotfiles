@@ -12,9 +12,9 @@ set undodir=~/.vim/undo//
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+    Plugin 'VundleVim/Vundle.vim'
+    Plugin 'godlygeek/tabular'
+    Plugin 'plasticboy/vim-markdown'
 call vundle#end()
 
 set background=light
