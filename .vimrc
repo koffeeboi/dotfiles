@@ -128,6 +128,9 @@ nnoremap <f6> :e $myvimrc<CR>
 highlight TaskTodo              gui=bold guifg=#D70087
 highlight TaskStarted           gui=bold guifg=#124DAD
 highlight TaskWaiting           gui=bold guifg=#A0238A
+
+highlight TaskRepeat            gui=bold guifg=#4B65E7
+
 highlight TaskDone              gui=bold guifg=#12AD66
 highlight TaskCanceled          gui=bold guifg=#D64144
 
@@ -155,6 +158,8 @@ augroup HighlightTask
     autocmd WinEnter,VimEnter * call matchadd('TaskTodo', 'TODO', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskStarted', 'STARTED', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskWaiting', 'WAITING', -1)
+
+    autocmd WinEnter,VimEnter * call matchadd('TaskRepeat', 'REPEAT', -1)
 
     autocmd WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
@@ -202,11 +207,13 @@ command! -nargs=0 TaskFindStarted :vimgrep /^\s*\CSTARTED/g % <BAR>
 nnoremap <Leader>fs mt:TaskFindStarted<CR>`t
 command! -nargs=0 TaskFindWaiting :vimgrep /^\s*\CWAITING/g % <BAR>
 nnoremap <Leader>fw mt:TaskFindWaiting<CR>`t
+command! -nargs=0 TaskFindRepeat :vimgrep /^\s*\CREPEAT/g % <BAR>
+nnoremap <Leader>fr mt:TaskFindRepeat<CR>`t
 command! -nargs=0 TaskFindDone :vimgrep /^\s*\CDONE/g % <BAR>
 nnoremap <Leader>fd mt:TaskFindDone<CR>`t
 command! -nargs=0 TaskFindCanceled :vimgrep /^\s*\CCANCELED/g % <BAR>
 nnoremap <Leader>fc mt:TaskFindCanceled<CR>`t
-command! -nargs=0 TaskFindAllTask :vimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWAITING\|^\s*\CDONE\|^\s*\CCANCELED/g % <BAR>
+command! -nargs=0 TaskFindAllTask :vimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWAITING/g % <BAR>
 nnoremap <Leader>fa mt:TaskFindAllTask<CR>`t
 
 "Writes date in this format: 2021-01-14 Thu 2:57:57 PM
@@ -218,6 +225,7 @@ nnoremap <Leader>n :TaskNew<CR>5l
 command! -nargs=0 TaskAddOpenedTime put =strftime(' @opened(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddStartedTime put =strftime(' @started(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddWaitingTime put =strftime(' @waiting(%m-%d-%Y %X)')
+command! -nargs=0 TaskAddRepeatingTime put =strftime(' @repeating(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
 
@@ -229,6 +237,7 @@ command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
 nnoremap  <Leader>t mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
 nnoremap  <Leader>s mtA<ESC>:TaskAddStartedTime<CR>k<S-j>0eciwSTARTED<ESC>`t:w<CR>
 nnoremap  <Leader>w mtA<ESC>:TaskAddWaitingTime<CR>k<S-j>0eciwWAITING<ESC>`t:w<CR>
+nnoremap  <Leader>r mtA<ESC>:TaskAddRepeatingTime<CR>k<S-j>0eciwREPEAT<ESC>`t:w<CR>
 nnoremap  <Leader>d mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwDONE<ESC>`t:w<CR>
 nnoremap  <Leader>c mtA<ESC>:TaskAddCanceledTime<CR>k<S-j>0eciwCANCELED<ESC>`t:w<CR>
 
