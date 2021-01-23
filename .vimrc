@@ -137,14 +137,14 @@ nnoremap <f6> :e $myvimrc<CR>
 "" @daily @weekly @monthly            @customtag                            *bold* `code` "quote"
 
 
-highlight TaskTodo                  gui=bold guifg=#D70087
-highlight TaskStarted               gui=bold guifg=#124DAD
-highlight TaskWaiting               gui=bold guifg=#A0238A
+highlight TaskTodo                  gui=bold guifg=#FF0004
+highlight TaskStarted               gui=bold guifg=#002AFF
+highlight TaskWaiting               gui=bold guifg=#BC169E
 
-highlight TaskRepeat                gui=bold guifg=#4B65E7
+highlight TaskRepeat                gui=none guifg=#124DAD
 
-highlight TaskDone                  gui=bold guifg=#12AD66
-highlight TaskCanceled              gui=bold guifg=#D64144
+highlight TaskDone                  gui=none guifg=#477A63
+highlight TaskCanceled              gui=none guifg=#B70003
 
 highlight TaskGreyOut               gui=none guifg=#878787
 
@@ -200,7 +200,7 @@ augroup HighlightTask
     autocmd WinEnter,VimEnter * call matchadd('TaskFuture', '@future', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskOld', '@old', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskGreyOut', '^\s*DONE.*$', -1)
+    autocmd WinEnter,VimEnter * call matchadd('TaskGreyOut', '^\s*DONE.*$\|^\s*CANCELED.*$', -1)
 
     autocmd WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
     autocmd WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
@@ -237,10 +237,6 @@ nnoremap <Leader>fc :TaskFindCanceled<CR>
 command! -nargs=0 TaskFindAllTask :lvimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWAITING/gj % <BAR>
 nnoremap <Leader>fa :TaskFindAllTask<CR>
 
-"Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
-command! -nargs=0 TaskNew put =strftime('TODO @opened(%m-%d-%Y %X)')
-nnoremap <Leader>n :TaskNew<CR>5l
-
 "Add @opened/@started/@closed/@canceled tag to task state transition
 command! -nargs=0 TaskAddOpenedTime put =strftime(' @opened(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddStartedTime put =strftime(' @started(%m-%d-%Y %X)')
@@ -248,6 +244,9 @@ command! -nargs=0 TaskAddWaitingTime put =strftime(' @waiting(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddRepeatingTime put =strftime(' @repeating(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
+
+"Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
+nnoremap <Leader>n oTODO<ESC>:TaskAddOpenedTime<CR>k<S-j>l
 
 "Note: These commands assume there is already a TODO/DONE/CANCELED task word.
 nnoremap  <Leader>t mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
