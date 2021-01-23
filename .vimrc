@@ -211,12 +211,15 @@ augroup END
 
 let mapleader="\<Space>"
 
+"Display help menu by using <leader-leader>
+command! -nargs=0 TaskHelpMenu :lvimgrep /^"" .*/gj $myvimrc <BAR>
+nnoremap <Leader><Leader> :TaskHelpMenu<CR>
+
 "Used to display lvimgrep results, a.k.a the actual 'task list'/'agenda'
 command! -nargs=0 TaskList if empty(filter(getwininfo(), "v:val.loclist")) | lopen | else | lclose | endif
 nnoremap <Leader>l :TaskList<CR>
 nnoremap <C-n> :lnext<CR>
 nnoremap <C-p> :lprevious<CR>
-
 
 "Search for all TODO/STARTED/WAITING -> DONE/CANCELED tasks and displays them in quickfix window
 command! -nargs=0 TaskFindTodo :lvimgrep /^\s*\CTODO/gj % <BAR>
@@ -234,11 +237,6 @@ nnoremap <Leader>fc :TaskFindCanceled<CR>
 command! -nargs=0 TaskFindAllTask :lvimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWAITING/gj % <BAR>
 nnoremap <Leader>fa :TaskFindAllTask<CR>
 
-"Display help menu by using <leader-leader>
-command! -nargs=0 TaskHelpMenu :lvimgrep /^"" .*/gj $myvimrc <BAR>
-nnoremap <Leader><Leader> :TaskHelpMenu<CR>
-
-"Writes date in this format: 2021-01-14 Thu 2:57:57 PM
 "Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
 command! -nargs=0 TaskNew put =strftime('TODO @opened(%m-%d-%Y %X)')
 nnoremap <Leader>n :TaskNew<CR>5l
@@ -252,10 +250,6 @@ command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %X)')
 command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
 
 "Note: These commands assume there is already a TODO/DONE/CANCELED task word.
-"<Leader>t Changes task state to TODO and appends an @opened tag at the end.
-"<Leader>s Changes task state to STARTED and appends an @started tag at the end.
-"<Leader>d Changes task state to DONE and appends an @done tag at the end.
-"<Leader>c Changes task state to CANCELED and appends an @canceled tag at the end.
 nnoremap  <Leader>t mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
 nnoremap  <Leader>s mtA<ESC>:TaskAddStartedTime<CR>k<S-j>0eciwSTARTED<ESC>`t:w<CR>
 nnoremap  <Leader>w mtA<ESC>:TaskAddWaitingTime<CR>k<S-j>0eciwWAITING<ESC>`t:w<CR>
@@ -263,15 +257,12 @@ nnoremap  <Leader>r mtA<ESC>:TaskAddRepeatingTime<CR>k<S-j>0eciwREPEAT<ESC>`t:w<
 nnoremap  <Leader>d mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwDONE<ESC>`t:w<CR>
 nnoremap  <Leader>c mtA<ESC>:TaskAddCanceledTime<CR>k<S-j>0eciwCANCELED<ESC>`t:w<CR>
 
-"Prepends a line with TODO and appends @opened tag at the end.
-"Use this when the task wasn't created using :TaskNew or <Leader>n
+"Converts a non-task line to a new task
 nnoremap  <Leader>g mtA<ESC>:TaskAddOpenedTime<CR>k<S-j>ITODO <ESC>`t:w<CR>
 
 "Use visual block to select the lines to archive then press <Leader>a.
 "This will move everything after the first ARCHIVE keyword found, prepending
 "all selected lines with a '> ' after everything is moved.
-"For Windows (or  maybe other OS), it might be faster to triple click and drag the lines
-"to visually select the lines, then press <Leader>a.
 vnoremap  <Leader>a :s/^/> /g<CR>gvxmt/^\CARCHIVE:$<CR>:nohl<CR>o<ESC><S-v>[p`t:w<CR>:e<CR>
 
 "----------------------end of task todo/task manager----------------------
