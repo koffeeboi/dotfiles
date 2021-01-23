@@ -34,9 +34,4 @@ return
 #s::
 ChangeWindowFocus("s", 6)
 return
-#d::
-ChangeWindowFocus("d", 7)
-return
-#f::
-ChangeWindowFocus("f", 8)
-return
+
