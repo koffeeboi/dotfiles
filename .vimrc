@@ -238,12 +238,12 @@ command! -nargs=0 TaskFindAllTask :lvimgrep /^\s*\CTODO\|^\s*\CSTARTED\|^\s*\CWA
 nnoremap <Leader>fa :TaskFindAllTask<CR>
 
 "Add @opened/@started/@closed/@canceled tag to task state transition
-command! -nargs=0 TaskAddOpenedTime put =strftime(' @opened(%m-%d-%Y %X)')
-command! -nargs=0 TaskAddStartedTime put =strftime(' @started(%m-%d-%Y %X)')
-command! -nargs=0 TaskAddWaitingTime put =strftime(' @waiting(%m-%d-%Y %X)')
-command! -nargs=0 TaskAddRepeatingTime put =strftime(' @repeating(%m-%d-%Y %X)')
-command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %X)')
-command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %X)')
+command! -nargs=0 TaskAddOpenedTime put =strftime(' @opened(%m-%d-%Y %H:%M)')
+command! -nargs=0 TaskAddStartedTime put =strftime(' @started(%m-%d-%Y %H:%M)')
+command! -nargs=0 TaskAddWaitingTime put =strftime(' @waiting(%m-%d-%Y %H:%M)')
+command! -nargs=0 TaskAddRepeatingTime put =strftime(' @repeating(%m-%d-%Y %H:%M)')
+command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %H:%M)')
+command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %H:%M)')
 
 "Creates a new task like this: TODO @opened(03-22-2020 11:03:28 PM)
 nnoremap <Leader>n oTODO<ESC>:TaskAddOpenedTime<CR>k<S-j>l
