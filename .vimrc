@@ -127,7 +127,7 @@ nnoremap <f6> :e $myvimrc<CR>
 
 "----------------------todo list-------------------------
 "" *find task list*  | *new task*                   | *task states*    | *archive*       |
-"" `spc-sa` all      | `spc-n` creates a new task   | `spc-t` todo     | `spc-a` archive |
+"" `spc-sa`/`F1` all | `spc-n` creates a new task   | `spc-t` todo     | `spc-a` archive |
 "" `spc-st` todo     |                              | `spc-g` doing    |                 |
 "" `spc-sg` doing    | *search window*              | `spc-w` waiting  | *help*          |
 "" `spc-sw` waiting  | `spc-l` open search window   | `spc-d` done     | `spc-spc` help  |
@@ -242,6 +242,8 @@ command! -nargs=0 TaskFindFuture :lvimgrep /^\s*\CFUTURE/gj % <BAR>
 nnoremap <Leader>sf :TaskFindFuture<CR>
 command! -nargs=0 TaskFindOld :lvimgrep /^\s*\COLD/gj % <BAR>
 nnoremap <Leader>so :TaskFindOld<CR>
+
+nnoremap <f1> :TaskFindAllTask<CR>
 
 "Add @created/@doing/@closed/@canceled tag to task state transition
 command! -nargs=0 TaskAddCreatedTime put =strftime(' @created(%m-%d-%Y %H:%M)')

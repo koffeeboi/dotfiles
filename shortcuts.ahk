@@ -2,6 +2,10 @@
 Run, notepad.exe
 return
 
+#g::
+Run, "C:\Program Files (x86)\Vim\vim82\gvim.exe"
+return
+
 ChangeWindowFocus(keyToOverride, numberKey) 
 {
     Send {LWin down}%numberKey%
@@ -34,4 +38,14 @@ return
 #s::
 ChangeWindowFocus("s", 6)
 return
+
+
+#IfWinActive ahk_class POEWindowClass
+F5::SendInput {Enter}/hideout{Enter}{Enter}{Up}{Up}{Esc}
+
+^WheelUp::SendInput {Left}
+
+^WheelDown::SendInput {Right}
+
+#IfWinActive
 
