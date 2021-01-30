@@ -248,10 +248,6 @@ nnoremap <f1> :TaskFindAllTask<CR>
 "Add @created/@doing/@closed/@canceled tag to task state transition
 command! -nargs=0 TaskAddCreatedTime put =strftime(' @created(%m-%d-%Y %H:%M)')
 command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %H:%M)')
-"command! -nargs=0 TaskAddDoingTime put =strftime(' @doing(%m-%d-%Y %H:%M)')
-"command! -nargs=0 TaskAddWaitingTime put =strftime(' @waiting(%m-%d-%Y %H:%M)')
-"command! -nargs=0 TaskAddRepeatingTime put =strftime(' @repeating(%m-%d-%Y %H:%M)')
-"command! -nargs=0 TaskAddCanceledTime put =strftime(' @canceled(%m-%d-%Y %H:%M)')
 
 "Creates a new task like this: TODO @created(03-22-2020 11:03:28 PM)
 nnoremap <Leader>n oTODO<ESC>:TaskAddCreatedTime<CR>k<S-j>l
@@ -265,9 +261,6 @@ nnoremap  <Leader>c mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwCANCELED<ESC>`t:w<C
 nnoremap  <Leader>r mt0eciwREPEAT<ESC>`t:w<CR>
 nnoremap  <Leader>f mt0eciwFUTURE<ESC>`t:w<CR>
 nnoremap  <Leader>o mt0eciwOLD<ESC>`t:w<CR>
-
-"Converts a non-task line to a new task
-"nnoremap  <Leader>g mtA<ESC>:TaskAddCreatedTime<CR>k<S-j>ITODO <ESC>`t:w<CR>
 
 "Use visual block to select the lines to archive then press <Leader>a.
 "This will move everything after the first ARCHIVE keyword found, prepending
