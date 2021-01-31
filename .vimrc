@@ -93,123 +93,114 @@ nnoremap <silent> ) :bn<RETURN>
 "Turn off highlight after search with ctrl+l
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-nnoremap <f4> :e ~/Dropbox/TODO.txt<CR>
-
 nnoremap <f5> :so $myvimrc<CR>
 nnoremap <f6> :e $myvimrc<CR>
 
-"----------------------random stuff----------------------------------
-"Tag generator for fat text file. Five characters length.
-"let seed = srand()
-"function! GenerateRandomCharacters(length)
-"    put =range(1)
-"        \ ->map({-> range(a:length)
-"        \ ->map({-> (97+rand(g:seed) % 26)->nr2char()})->join('')})
-"endfunction
-"command! -nargs=0 RandomTag :call GenerateRandomCharacters(5)
-"nnoremap <Leader>r :RandomTag<CR>
-
-"Help you by displaying all the leader shortcuts
-"List what keybinds are associated with the leader key
-"command! -nargs=0 Help :map <lt>leader>                                         
-"nnoremap <Leader>h :Help<CR>
-
-"Search for tags in a big ass text file
-"command! -nargs=1 TaskFindCaseSensitive :lvimgrep /\C<args>/gj % <BAR> :copen
-"nnoremap <Leader>sf :TaskFindCaseSensitive<space>
-"Open file using Windows default. Use <c-r><c-o><quotes> to paste in command mode
-"command! -nargs=1 OpenSomethingWithDefaultProgram :call system('start <args>')
-"nnoremap <Leader>o :OpenSomethingWithDefaultProgram<space>
-
-"command! -nargs=0 KillBuffer :bp\|bd#
-"command! -nargs=0 KillBuffer :bdelete
-"nnoremap <Leader>k :KillBuffer<CR>
-
-"----------------------todo list-------------------------
-"" *find task list*  | *new task*                   | *task states*    | *archive*       |
-"" `spc-sa`/`F1` all | `spc-n` creates a new task   | `spc-t` todo     | `spc-a` archive |
-"" `spc-st` todo     |                              | `spc-g` doing    |                 |
-"" `spc-sg` doing    | *search window*              | `spc-w` waiting  | *help*          |
-"" `spc-sw` waiting  | `spc-l` open search window   | `spc-d` done     | `spc-spc` help  |
-"" `spc-sd` done     | `C-n`   next result          | `spc-c` canceled |                 |
-"" `spc-sc` canceled | `C-p`   previous result      | `spc-r` repeat   |                 |
-"" `spc-sr` repeat   |                              | `spc-f` future   |                 |
-"" `spc-sf` future   |                              | `spc-o` old      |                 |
-"" `spc-so` old      |                              |                  |                 |
+"----------------------todo list----------------------------------------------------------
+"" *search task*     | *new task*                   | *task states*    | *archive*        |
+"" `spc-st` todo     | `spc-n` creates a new task   | `spc-t` todo     | `spc-a` archive  |
+"" `spc-sg` doing    |                              | `spc-g` doing    |                  |
+"" `spc-sw` waiting  | *search window*              | `spc-w` waiting  | *help*           |
+"" `spc-sd` done     | `spc-l` toggle search window | `spc-d` done     | `spc-spc` help   |
+"" `spc-sc` canceled | `C-n`   next result          | `spc-c` canceled |                  |
+"" `spc-sr` repeat   | `C-p`   previous result      | `spc-r` repeat   | `f1` on/off task |
+"" `spc-sf` future   |                              | `spc-f` future   | `f2` open todo   |
+"" `spc-so` old      |                              | `spc-o` old      |                  |
 "" @critical @high @low        @customtag                            *bold* `code` "quote"         
 
+let s:tasks_highlight_on = 0
+function! ToggleHighlightTaskGroup()
+    if s:tasks_highlight_on
+        let s:tasks_highlight_on = 0
 
-highlight TaskTodo                  gui=bold guifg=#FF0004
-highlight TaskDoing                 gui=bold guifg=#002AFF
-highlight TaskWaiting               gui=bold guifg=#BC169E
+        hi TaskTodo                  gui=bold guifg=#EA2222
+        hi TaskDoing                 gui=bold guifg=#002AFF
+        hi TaskWaiting               gui=bold guifg=#BC169E
 
-highlight TaskDone                  gui=none guifg=#477A63
-highlight TaskCanceled              gui=none guifg=#B70003
+        hi TaskDone                  gui=none guifg=#477A63
+        hi TaskCanceled              gui=none guifg=#B70003
 
-highlight TaskRepeat                gui=bold guifg=#124DAD
+        hi TaskRepeat                gui=bold guifg=#124DAD
+        hi TaskFuture                gui=bold guifg=#BC169E
+        hi TaskOld                   gui=bold guifg=#4F7658
 
-highlight TaskFuture                gui=bold guifg=#BC169E
-highlight TaskOld                   gui=bold guifg=#4F7658
+        hi TaskAsterickEmphasis      gui=bold guifg=black
+        hi TaskBacktickEmphasis      gui=bold guifg=#E47B00
+        hi TaskDoubleQuoteEmphasis   gui=bold guifg=#5F8700
 
-highlight TaskGreyOut               gui=none guifg=#878787
+        hi TaskLabels                gui=none guibg=#BCBCBC guifg=#191919
+        hi TaskTags                  gui=none guibg=#41BBC5 guifg=#023A3E
 
-highlight TaskAsterickEmphasis      gui=bold guifg=black
-highlight TaskBacktickEmphasis      gui=bold guifg=#E47B00
-highlight TaskDoubleQuoteEmphasis   gui=bold guifg=#5F8700
+        hi TaskCriticalTag           gui=none guibg=#FF4C4C guifg=#320000
+        hi TaskHighTag               gui=none guibg=#FFAC41 guifg=#2F1A00
+        hi TaskLowTag                gui=none guibg=#FFE634 guifg=#2C2700
 
-highlight TaskLabels                gui=bold guibg=#005F87 guifg=#F4F4F4
-highlight TaskTags                  gui=none guifg=#878787
+        hi TaskGreyout               gui=none guifg=#878787
 
-highlight TaskCriticalTag           gui=none guibg=#FF4C4C guifg=black
-highlight TaskHighTag               gui=none guibg=#FFAC41 guifg=black
-highlight TaskLowTag                gui=none guibg=#FFE634 guifg=black
+        augroup HighlightTaskGroup
+            au!
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskTodo', 'TODO', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDoing', 'DOING', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskWaiting', 'WAITING', -1)
 
-"highlight TaskDaily                 gui=none guibg=#9939FF guifg=black
-"highlight TaskWeekly                gui=none guibg=#8D53CC guifg=black
-"highlight TaskMonthly               gui=none guibg=#70568D guifg=black
-"
-"highlight TaskToday                 gui=none guibg=#3FFF68 guifg=black
-"highlight TaskTomorrow              gui=none guibg=#FF41DE guifg=black
-"highlight TaskYesterday             gui=none guibg=#54AB67 guifg=black
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskRepeat', 'REPEAT', -1)
 
-augroup HighlightTask
-    au!
-    autocmd WinEnter,VimEnter * call matchadd('TaskTodo', 'TODO', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskDoing', 'DOING', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskWaiting', 'WAITING', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskFuture', 'FUTURE', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskOld', 'OLD', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskRepeat', 'REPEAT', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskAsterickEmphasis', '\*.\{-}\*', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskBacktickEmphasis', '`.\{-}`', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDoubleQuoteEmphasis', '\".\{-}\"', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskFuture', 'FUTURE', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskOld', 'OLD', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskLabels', '^.*:$', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskTags', '@\S*', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '@\S*(.*)', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskAsterickEmphasis', '\*.\{-}\*', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskBacktickEmphasis', '`.\{-}`', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskDoubleQuoteEmphasis', '\".\{-}\"', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskCriticalTag', '@critical', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskHighTag', '@high', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskLowTag', '@low', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskLabels', '^.*:$', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskTags', '@\S*(.*)\|@\S*', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^\s*DONE.*$\|^\s*CANCELED.*$', -1)
 
-    autocmd WinEnter,VimEnter * call matchadd('TaskCriticalTag', '@critical', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskHighTag', '@high', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskLowTag', '@low', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
 
-    "autocmd WinEnter,VimEnter * call matchadd('TaskDaily', '@daily', -1)
-    "autocmd WinEnter,VimEnter * call matchadd('TaskWeekly', '@weekly', -1)
-    "autocmd WinEnter,VimEnter * call matchadd('TaskMonthly', '@monthly', -1)
+            "Grey out all archive lines
+            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^>.*$', -1)
+        augroup END
+    else
+        let s:tasks_highlight_on = 1
+        augroup HighlightTaskGroup
+            au!
+        augroup END
+        hi clear TaskTodo                  
+        hi clear TaskDoing                 
+        hi clear TaskWaiting               
+        
+        hi clear TaskDone                  
+        hi clear TaskCanceled              
+       
+        hi clear TaskRepeat                
+        hi clear TaskFuture                
+        hi clear TaskOld                   
+      
+        hi clear TaskAsterickEmphasis      
+        hi clear TaskBacktickEmphasis      
+        hi clear TaskDoubleQuoteEmphasis   
+     
+        hi clear TaskLabels                
+        hi clear TaskTags                  
+    
+        hi clear TaskCriticalTag           
+        hi clear TaskHighTag               
+        hi clear TaskLowTag                
+   
+        hi clear TaskGreyout               
+    endif 
+endfunction
 
-    "autocmd WinEnter,VimEnter * call matchadd('TaskToday', '@today', -1)
-    "autocmd WinEnter,VimEnter * call matchadd('TaskTomorrow', '@tomorrow', -1)
-    "autocmd WinEnter,VimEnter * call matchadd('TaskYesterday', '@yesterday', -1)
-
-    autocmd WinEnter,VimEnter * call matchadd('TaskGreyOut', '^\s*DONE.*$\|^\s*CANCELED.*$', -1)
-
-    autocmd WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
-    autocmd WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
-
-    "Grey out all archive lines
-    autocmd WinEnter,VimEnter * call matchadd('TaskGreyOut', '^>.*$', -1)
-augroup END
+nnoremap <f1> :call ToggleHighlightTaskGroup()<CR>:e<CR>
+nnoremap <f2> :e ~/Dropbox/TODO.txt<CR>
 
 let mapleader="\<Space>"
 
@@ -243,15 +234,14 @@ nnoremap <Leader>sf :TaskFindFuture<CR>
 command! -nargs=0 TaskFindOld :lvimgrep /^\s*\COLD/gj % <BAR>
 nnoremap <Leader>so :TaskFindOld<CR>
 
-nnoremap <f1> :TaskFindAllTask<CR>
-
-"Add @created/@doing/@closed/@canceled tag to task state transition
+"Append @created/@closed tag
 command! -nargs=0 TaskAddCreatedTime put =strftime(' @created(%m-%d-%Y %H:%M)')
 command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %H:%M)')
 
 "Creates a new task like this: TODO @created(03-22-2020 11:03:28 PM)
 nnoremap <Leader>n oTODO<ESC>:TaskAddCreatedTime<CR>k<S-j>l
 
+"Task state transition functions: TODO/DOING/WAITING => DONE/CANCELED, REPEAT/FUTURE/OLD
 "Note: These commands assume there is already a TODO/DONE/CANCELED task word.
 nnoremap  <Leader>t mtA<ESC>:TaskAddCreatedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
 nnoremap  <Leader>g mt0eciwDOING<ESC>`t:w<CR>
@@ -268,3 +258,31 @@ nnoremap  <Leader>o mt0eciwOLD<ESC>`t:w<CR>
 vnoremap  <Leader>a :s/^/> /g<CR>gvxmt/^\CARCHIVE:$<CR>:nohl<CR>o<ESC><S-v>[p`t:w<CR>:e<CR>
 
 "----------------------end of task todo/task manager----------------------
+
+"----------------------random stuff----------------------------------
+"Tag generator for fat text file. Five characters length.
+"let seed = srand()
+"function! GenerateRandomCharacters(length)
+"    put =range(1)
+"        \ ->map({-> range(a:length)
+"        \ ->map({-> (97+rand(g:seed) % 26)->nr2char()})->join('')})
+"endfunction
+"command! -nargs=0 RandomTag :call GenerateRandomCharacters(5)
+"nnoremap <Leader>r :RandomTag<CR>
+
+"Help you by displaying all the leader shortcuts
+"List what keybinds are associated with the leader key
+"command! -nargs=0 Help :map <lt>leader>                                         
+"nnoremap <Leader>h :Help<CR>
+
+"Search for tags in a big ass text file
+"command! -nargs=1 TaskFindCaseSensitive :lvimgrep /\C<args>/gj % <BAR> :copen
+"nnoremap <Leader>sf :TaskFindCaseSensitive<space>
+"Open file using Windows default. Use <c-r><c-o><quotes> to paste in command mode
+"command! -nargs=1 OpenSomethingWithDefaultProgram :call system('start <args>')
+"nnoremap <Leader>o :OpenSomethingWithDefaultProgram<space>
+
+"command! -nargs=0 KillBuffer :bp\|bd#
+"command! -nargs=0 KillBuffer :bdelete
+"nnoremap <Leader>k :KillBuffer<CR>
+"----------------------end of random stuff----------------------------------
