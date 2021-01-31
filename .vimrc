@@ -110,8 +110,8 @@ nnoremap <f6> :e $myvimrc<CR>
 
 let s:tasks_highlight_on = 0
 function! ToggleHighlightTaskGroup()
-    if s:tasks_highlight_on
-        let s:tasks_highlight_on = 0
+    if !s:tasks_highlight_on
+        let s:tasks_highlight_on = 1
 
         hi TaskTodo                  gui=bold guifg=#EA2222
         hi TaskDoing                 gui=bold guifg=#002AFF
@@ -169,7 +169,7 @@ function! ToggleHighlightTaskGroup()
             autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^>.*$', -1)
         augroup END
     else
-        let s:tasks_highlight_on = 1
+        let s:tasks_highlight_on = 0
         augroup HighlightTaskGroup
             au!
         augroup END
