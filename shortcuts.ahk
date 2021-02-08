@@ -1,7 +1,9 @@
-:R*:````date::
+:R*:``d::
 FormatTime, datenow, , yyyy-MM-dd
 Send %datenow%_
 return
+
+:R*:``w::wtfwhatevenisthisthing
 
 #n:: 
 Run, notepad.exe
