@@ -1,7 +1,11 @@
+:R*:````d::
+FormatTime, datenow, , yyyy-MM-dd
+Send %datenow%_
+return
+
 #n:: 
 Run, notepad.exe
 return
-
 
 ChangeWindowFocus(keyToOverride, numberKey) 
 {
