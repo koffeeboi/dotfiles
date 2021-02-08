@@ -1,4 +1,4 @@
-:R*:````d::
+:R*:````date::
 FormatTime, datenow, , yyyy-MM-dd
 Send %datenow%_
 return
