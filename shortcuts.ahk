@@ -3,7 +3,7 @@ FormatTime, datenow, , yyyy-MM-dd
 Send %datenow%_
 return
 
-:R*:``w::wtfwhatevenisthisthing
+:R*:``1::wtfwhatevenisthisthing
 
 #n:: 
 Run, notepad.exe
@@ -41,7 +41,6 @@ return
 #s::
 ChangeWindowFocus("s", 6)
 return
-
 
 #IfWinActive ahk_class POEWindowClass
 F5::SendInput {Enter}/hideout{Enter}{Enter}{Up}{Up}{Esc}
