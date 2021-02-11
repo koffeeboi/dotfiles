@@ -10,12 +10,12 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    Plugin 'VundleVim/Vundle.vim'
-    Plugin 'godlygeek/tabular'
-    Plugin 'plasticboy/vim-markdown'
-call vundle#end()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"    Plugin 'VundleVim/Vundle.vim'
+"    Plugin 'godlygeek/tabular'
+"    Plugin 'plasticboy/vim-markdown'
+"call vundle#end()
 
 set background=light
 colorscheme PaperColor
@@ -108,154 +108,154 @@ nnoremap <f6> :e $myvimrc<CR>
 "" `spc-so` old      |                              | `spc-o` old      |                  |
 "" @critical @high @low        @customtag                            *bold* `code` "quote"         
 
-let s:tasks_highlight_on = 0
-function! ToggleHighlightTaskGroup()
-    if !s:tasks_highlight_on
-        let s:tasks_highlight_on = 1
-
-        hi TaskTodo                  gui=bold guifg=#EA2222
-        hi TaskDoing                 gui=bold guifg=#002AFF
-        hi TaskWaiting               gui=bold guifg=#BC169E
-
-        hi TaskDone                  gui=none guifg=#477A63
-        hi TaskCanceled              gui=none guifg=#B70003
-
-        hi TaskRepeat                gui=bold guifg=#124DAD
-        hi TaskFuture                gui=bold guifg=#BC169E
-        hi TaskOld                   gui=bold guifg=#4F7658
-
-        hi TaskAsterickEmphasis      gui=bold guifg=black
-        hi TaskBacktickEmphasis      gui=bold guifg=#E47B00
-        hi TaskDoubleQuoteEmphasis   gui=bold guifg=#5F8700
-
-        hi TaskLabels                gui=none guibg=#BCBCBC guifg=#191919
-        hi TaskTags                  gui=none guibg=#41BBC5 guifg=#023A3E
-
-        hi TaskCriticalTag           gui=none guibg=#FF4C4C guifg=#320000
-        hi TaskHighTag               gui=none guibg=#FFAC41 guifg=#2F1A00
-        hi TaskLowTag                gui=none guibg=#FFE634 guifg=#2C2700
-
-        hi TaskGreyout               gui=none guifg=#878787
-
-        augroup HighlightTaskGroup
-            au!
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskTodo', 'TODO', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDoing', 'DOING', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskWaiting', 'WAITING', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskRepeat', 'REPEAT', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskFuture', 'FUTURE', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskOld', 'OLD', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskAsterickEmphasis', '\*.\{-}\*', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskBacktickEmphasis', '`.\{-}`', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDoubleQuoteEmphasis', '\".\{-}\"', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskLabels', '^.*:$', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskTags', '@\S*', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '@\S*(.*)', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskCriticalTag', '@critical', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskHighTag', '@high', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskLowTag', '@low', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^\s*DONE.*$\|^\s*CANCELED.*$', -1)
-
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
-
-            "Grey out all archive lines
-            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^>.*$', -1)
-        augroup END
-    else
-        let s:tasks_highlight_on = 0
-        augroup HighlightTaskGroup
-            au!
-        augroup END
-        hi clear TaskTodo                  
-        hi clear TaskDoing                 
-        hi clear TaskWaiting               
-        
-        hi clear TaskDone                  
-        hi clear TaskCanceled              
-       
-        hi clear TaskRepeat                
-        hi clear TaskFuture                
-        hi clear TaskOld                   
-      
-        hi clear TaskAsterickEmphasis      
-        hi clear TaskBacktickEmphasis      
-        hi clear TaskDoubleQuoteEmphasis   
-     
-        hi clear TaskLabels                
-        hi clear TaskTags                  
-    
-        hi clear TaskCriticalTag           
-        hi clear TaskHighTag               
-        hi clear TaskLowTag                
-   
-        hi clear TaskGreyout               
-    endif 
-endfunction
-
-nnoremap <f1> :call ToggleHighlightTaskGroup()<CR>:e<CR>
-nnoremap <f2> :e ~/Dropbox/TODO.txt<CR>
-
-let mapleader="\<Space>"
-
-"Display help menu by using <leader-leader>
-command! -nargs=0 TaskHelpMenu :lvimgrep /^"" .*/gj $myvimrc <BAR>
-nnoremap <Leader><Leader> :TaskHelpMenu<CR>
-
-"Used to display lvimgrep results, a.k.a the actual 'task list'/'agenda'
-command! -nargs=0 TaskList if empty(filter(getwininfo(), "v:val.loclist")) | lopen | else | lclose | endif
-nnoremap <Leader>l :TaskList<CR>
-nnoremap <C-n> :lnext<CR>
-nnoremap <C-p> :lprevious<CR>
-
-"Search for all TODO/DOING/WAITING -> DONE/CANCELED tasks and displays them in quickfix window
-command! -nargs=0 TaskFindAllTask :lvimgrep /^\s*\CTODO\|^\s*\CDOING\|^\s*\CWAITING/gj % <BAR>
-nnoremap <Leader>sa :TaskFindAllTask<CR>
-command! -nargs=0 TaskFindTodo :lvimgrep /^\s*\CTODO/gj % <BAR>
-nnoremap <Leader>st :TaskFindTodo<CR>
-command! -nargs=0 TaskFindDoing :lvimgrep /^\s*\CDOING/gj % <BAR>
-nnoremap <Leader>sg :TaskFindDoing<CR>
-command! -nargs=0 TaskFindWaiting :lvimgrep /^\s*\CWAITING/gj % <BAR>
-nnoremap <Leader>sw :TaskFindWaiting<CR>
-command! -nargs=0 TaskFindDone :lvimgrep /^\s*\CDONE/gj % <BAR>
-nnoremap <Leader>sd :TaskFindDone<CR>
-command! -nargs=0 TaskFindCanceled :lvimgrep /^\s*\CCANCELED/gj % <BAR>
-nnoremap <Leader>sc :TaskFindCanceled<CR>
-command! -nargs=0 TaskFindRepeat :lvimgrep /^\s*\CREPEAT/gj % <BAR>
-nnoremap <Leader>sr :TaskFindRepeat<CR>
-command! -nargs=0 TaskFindFuture :lvimgrep /^\s*\CFUTURE/gj % <BAR>
-nnoremap <Leader>sf :TaskFindFuture<CR>
-command! -nargs=0 TaskFindOld :lvimgrep /^\s*\COLD/gj % <BAR>
-nnoremap <Leader>so :TaskFindOld<CR>
-
-"Append @created/@closed tag
-command! -nargs=0 TaskAddCreatedTime put =strftime(' @created(%m-%d-%Y %H:%M)')
-command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %H:%M)')
-
-"Creates a new task like this: TODO @created(03-22-2020 11:03:28 PM)
-nnoremap <Leader>n oTODO<ESC>:TaskAddCreatedTime<CR>k<S-j>l
-
-"Task state transition functions: TODO/DOING/WAITING => DONE/CANCELED, REPEAT/FUTURE/OLD
-"Note: These commands assume there is already a TODO/DONE/CANCELED task word.
-nnoremap  <Leader>t mtA<ESC>:TaskAddCreatedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
-nnoremap  <Leader>g mt0eciwDOING<ESC>`t:w<CR>
-nnoremap  <Leader>w mt0eciwWAITING<ESC>`t:w<CR>
-nnoremap  <Leader>d mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwDONE<ESC>`t:w<CR>
-nnoremap  <Leader>c mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwCANCELED<ESC>`t:w<CR>
-nnoremap  <Leader>r mt0eciwREPEAT<ESC>`t:w<CR>
-nnoremap  <Leader>f mt0eciwFUTURE<ESC>`t:w<CR>
-nnoremap  <Leader>o mt0eciwOLD<ESC>`t:w<CR>
-
-"Use visual block to select the lines to archive then press <Leader>a.
-"This will move everything after the first ARCHIVE keyword found, prepending
-"all selected lines with a '> ' after everything is moved.
-vnoremap  <Leader>a :s/^/> /g<CR>gvxmt/^\CARCHIVE:$<CR>:nohl<CR>o<ESC><S-v>[p`t:w<CR>:e<CR>
+"let s:tasks_highlight_on = 0
+"function! ToggleHighlightTaskGroup()
+"    if !s:tasks_highlight_on
+"        let s:tasks_highlight_on = 1
+"
+"        hi TaskTodo                  gui=bold guifg=#EA2222
+"        hi TaskDoing                 gui=bold guifg=#002AFF
+"        hi TaskWaiting               gui=bold guifg=#BC169E
+"
+"        hi TaskDone                  gui=none guifg=#477A63
+"        hi TaskCanceled              gui=none guifg=#B70003
+"
+"        hi TaskRepeat                gui=bold guifg=#124DAD
+"        hi TaskFuture                gui=bold guifg=#BC169E
+"        hi TaskOld                   gui=bold guifg=#4F7658
+"
+"        hi TaskAsterickEmphasis      gui=bold guifg=black
+"        hi TaskBacktickEmphasis      gui=bold guifg=#E47B00
+"        hi TaskDoubleQuoteEmphasis   gui=bold guifg=#5F8700
+"
+"        hi TaskLabels                gui=none guibg=#BCBCBC guifg=#191919
+"        hi TaskTags                  gui=none guibg=#41BBC5 guifg=#023A3E
+"
+"        hi TaskCriticalTag           gui=none guibg=#FF4C4C guifg=#320000
+"        hi TaskHighTag               gui=none guibg=#FFAC41 guifg=#2F1A00
+"        hi TaskLowTag                gui=none guibg=#FFE634 guifg=#2C2700
+"
+"        hi TaskGreyout               gui=none guifg=#878787
+"
+"        augroup HighlightTaskGroup
+"            au!
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskTodo', 'TODO', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDoing', 'DOING', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskWaiting', 'WAITING', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskRepeat', 'REPEAT', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskFuture', 'FUTURE', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskOld', 'OLD', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskAsterickEmphasis', '\*.\{-}\*', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskBacktickEmphasis', '`.\{-}`', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDoubleQuoteEmphasis', '\".\{-}\"', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskLabels', '^.*:$', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskTags', '@\S*', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '@\S*(.*)', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskCriticalTag', '@critical', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskHighTag', '@high', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskLowTag', '@low', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^\s*DONE.*$\|^\s*CANCELED.*$', -1)
+"
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskDone', 'DONE', -1)
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskCanceled', 'CANCELED', -1)
+"
+"            "Grey out all archive lines
+"            autocmd BufEnter,WinEnter,VimEnter * call matchadd('TaskGreyout', '^>.*$', -1)
+"        augroup END
+"    else
+"        let s:tasks_highlight_on = 0
+"        augroup HighlightTaskGroup
+"            au!
+"        augroup END
+"        hi clear TaskTodo                  
+"        hi clear TaskDoing                 
+"        hi clear TaskWaiting               
+"        
+"        hi clear TaskDone                  
+"        hi clear TaskCanceled              
+"       
+"        hi clear TaskRepeat                
+"        hi clear TaskFuture                
+"        hi clear TaskOld                   
+"      
+"        hi clear TaskAsterickEmphasis      
+"        hi clear TaskBacktickEmphasis      
+"        hi clear TaskDoubleQuoteEmphasis   
+"     
+"        hi clear TaskLabels                
+"        hi clear TaskTags                  
+"    
+"        hi clear TaskCriticalTag           
+"        hi clear TaskHighTag               
+"        hi clear TaskLowTag                
+"   
+"        hi clear TaskGreyout               
+"    endif 
+"endfunction
+"
+"nnoremap <f1> :call ToggleHighlightTaskGroup()<CR>:e<CR>
+"nnoremap <f2> :e ~/Dropbox/TODO.txt<CR>
+"
+"let mapleader="\<Space>"
+"
+""Display help menu by using <leader-leader>
+"command! -nargs=0 TaskHelpMenu :lvimgrep /^"" .*/gj $myvimrc <BAR>
+"nnoremap <Leader><Leader> :TaskHelpMenu<CR>
+"
+""Used to display lvimgrep results, a.k.a the actual 'task list'/'agenda'
+"command! -nargs=0 TaskList if empty(filter(getwininfo(), "v:val.loclist")) | lopen | else | lclose | endif
+"nnoremap <Leader>l :TaskList<CR>
+"nnoremap <C-n> :lnext<CR>
+"nnoremap <C-p> :lprevious<CR>
+"
+""Search for all TODO/DOING/WAITING -> DONE/CANCELED tasks and displays them in quickfix window
+"command! -nargs=0 TaskFindAllTask :lvimgrep /^\s*\CTODO\|^\s*\CDOING\|^\s*\CWAITING/gj % <BAR>
+"nnoremap <Leader>sa :TaskFindAllTask<CR>
+"command! -nargs=0 TaskFindTodo :lvimgrep /^\s*\CTODO/gj % <BAR>
+"nnoremap <Leader>st :TaskFindTodo<CR>
+"command! -nargs=0 TaskFindDoing :lvimgrep /^\s*\CDOING/gj % <BAR>
+"nnoremap <Leader>sg :TaskFindDoing<CR>
+"command! -nargs=0 TaskFindWaiting :lvimgrep /^\s*\CWAITING/gj % <BAR>
+"nnoremap <Leader>sw :TaskFindWaiting<CR>
+"command! -nargs=0 TaskFindDone :lvimgrep /^\s*\CDONE/gj % <BAR>
+"nnoremap <Leader>sd :TaskFindDone<CR>
+"command! -nargs=0 TaskFindCanceled :lvimgrep /^\s*\CCANCELED/gj % <BAR>
+"nnoremap <Leader>sc :TaskFindCanceled<CR>
+"command! -nargs=0 TaskFindRepeat :lvimgrep /^\s*\CREPEAT/gj % <BAR>
+"nnoremap <Leader>sr :TaskFindRepeat<CR>
+"command! -nargs=0 TaskFindFuture :lvimgrep /^\s*\CFUTURE/gj % <BAR>
+"nnoremap <Leader>sf :TaskFindFuture<CR>
+"command! -nargs=0 TaskFindOld :lvimgrep /^\s*\COLD/gj % <BAR>
+"nnoremap <Leader>so :TaskFindOld<CR>
+"
+""Append @created/@closed tag
+"command! -nargs=0 TaskAddCreatedTime put =strftime(' @created(%m-%d-%Y %H:%M)')
+"command! -nargs=0 TaskAddClosedTime put =strftime(' @closed(%m-%d-%Y %H:%M)')
+"
+""Creates a new task like this: TODO @created(03-22-2020 11:03:28 PM)
+"nnoremap <Leader>n oTODO<ESC>:TaskAddCreatedTime<CR>k<S-j>l
+"
+""Task state transition functions: TODO/DOING/WAITING => DONE/CANCELED, REPEAT/FUTURE/OLD
+""Note: These commands assume there is already a TODO/DONE/CANCELED task word.
+"nnoremap  <Leader>t mtA<ESC>:TaskAddCreatedTime<CR>k<S-j>0eciwTODO<ESC>`t:w<CR>
+"nnoremap  <Leader>g mt0eciwDOING<ESC>`t:w<CR>
+"nnoremap  <Leader>w mt0eciwWAITING<ESC>`t:w<CR>
+"nnoremap  <Leader>d mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwDONE<ESC>`t:w<CR>
+"nnoremap  <Leader>c mtA<ESC>:TaskAddClosedTime<CR>k<S-j>0eciwCANCELED<ESC>`t:w<CR>
+"nnoremap  <Leader>r mt0eciwREPEAT<ESC>`t:w<CR>
+"nnoremap  <Leader>f mt0eciwFUTURE<ESC>`t:w<CR>
+"nnoremap  <Leader>o mt0eciwOLD<ESC>`t:w<CR>
+"
+""Use visual block to select the lines to archive then press <Leader>a.
+""This will move everything after the first ARCHIVE keyword found, prepending
+""all selected lines with a '> ' after everything is moved.
+"vnoremap  <Leader>a :s/^/> /g<CR>gvxmt/^\CARCHIVE:$<CR>:nohl<CR>o<ESC><S-v>[p`t:w<CR>:e<CR>
 
 "----------------------end of task todo/task manager----------------------
 
