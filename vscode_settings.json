@@ -1,0 +1,158 @@
+{
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "editor.smoothScrolling": true,
+    "editor.mouseWheelScrollSensitivity": 2,
+    "merge-conflict.decorators.enabled": false,
+    "[css]": {
+        "editor.tabSize": 2
+    },
+    "[scss]": {
+        "editor.tabSize": 2
+    },
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[typescript]": {
+        "editor.tabSize": 2
+    },
+    "[typescriptreact]": {
+        "editor.tabSize": 2
+    },
+    "[markdown]": {
+        "editor.insertSpaces": true,
+        "editor.wordWrap": "on",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.quickSuggestions": false,
+    },
+    "[makefile]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    },
+    "[plaintext]": {
+        "editor.tabSize": 2
+    },
+    "explorer.confirmDragAndDrop": false,
+    "emmet.extensionsPath": [
+        ""
+    ],
+    "window.title": "${dirty}${activeFolderMedium}${separator}${rootName}${separator}${appName}",
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.colorCustomizations": {
+        "tab.activeModifiedBorder": "#ff0800",
+        "tab.activeBorderTop": "#1eff00"
+    }, 
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.editor.labelFormat": "short",
+    "breadcrumbs.enabled": true,
+    "vsicons.dontShowNewVersionMessage": true,
+    "pasteImage.basePath": "${projectRoot}",
+    "pasteImage.path": "${projectRoot}/_resources",
+    "git.ignoreMissingGitWarning": true,
+    "markdown.extension.print.absoluteImgPath": false,
+    "pasteImage.prefix": "/",
+    "markdown-preview-enhanced.previewTheme": "atom-light.css",
+    "editor.fontSize": 16,
+    "explorer.compactFolders": false,
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [ "j" ], 
+            "after": [ "g", "j" ]
+        },
+        {
+            "before": [ "k" ],
+            "after": [ "g", "k" ]
+        },
+        {
+            "before": [ "<leader>", "w"],
+            "after": [":", "w", "<cr>"]
+        },
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "\""],
+            "after": ["c", "\"", "<esc>", "p", "a", "\"", "<esc>"]
+        },
+        {
+            "before": ["<leader>", "'"],
+            "after": ["c", "'", "<esc>", "p", "a", "'", "<esc>"]
+        },
+        {
+            "before": ["<leader>", "`"],
+            "after": ["c", "`", "<esc>", "p", "a", "`", "<esc>"]
+        },
+        {
+            "before": ["<leader>", "~"],
+            "after": ["c", "~", "<esc>", "p", "a", "~", "<esc>"]
+        },
+        {
+            "before": ["<leader>", "*"],
+            "after": ["c", "*", "<esc>", "p", "a", "*", "<esc>"]
+        },
+        {
+            "before": ["<leader>", "*", "*"],
+            "after": ["c", "*", "*", "<esc>", "p", "a", "*", "*", "<esc>"]
+        },
+        {
+            "before": ["<leader>", "("],
+            "after": ["c", "(", "<esc>", "p"] // vscode auto generates matching brackets, don't need ')'
+        },
+        {
+            "before": ["<leader>", ")"],
+            "after": ["c", "(", "<esc>", "p"] // vscode auto generates matching brackets, don't need ')'
+        },
+        {
+            "before": ["<leader>", "{"],
+            "after": ["c", "{", "<esc>", "p"] // vscode auto generates matching brackets, don't need '}'
+        },
+        {
+            "before": ["<leader>", "}"],
+            "after": ["c", "{", "<esc>", "p"] // vscode auto generates matching brackets, don't need '}'
+        },
+        {
+            "before": ["<leader>", "["],
+            "after": ["c", "[", "<esc>", "p"] // vscode auto generates matching brackets, don't need '}'
+        },
+        {
+            "before": ["<leader>", "]"],
+            "after": ["c", "[", "<esc>", "p"] // vscode auto generates matching brackets, don't need '}'
+        },
+        {
+            "before": ["<leader>", "<"],
+            "after": ["c", "<", "<esc>", "p", "a", ">", "<esc>"]
+        },
+        {
+            "before": ["<leader>", ">"],
+            "after": ["c", "<", "<esc>", "p", "a", ">", "<esc>"]
+        },
+    ],
+    "vim.useSystemClipboard": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+    "diffEditor.wordWrap": "off",
+    "editor.minimap.enabled": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "outline.icons": false,
+    "workbench.activityBar.visible": false,
+    "editor.cursorStyle": "line",
+    "editor.lineNumbers": "on",
+    "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+    "editor.wordWrap": "on",
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "todo.archive.name": "Log",
+    "todo.archive.sortByDate": true,
+    "editor.fontFamily": "Consolas, 'Courier New', monospace, 'Segoe UI Emoji'",
+    "editor.snippetSuggestions": "top",
+    "markdown-preview-enhanced.liveUpdate": true,
+    "gutterpreview.imagePreviewMaxHeight": 900,
+    "workbench.colorTheme": "Atom One Dark"
+}
